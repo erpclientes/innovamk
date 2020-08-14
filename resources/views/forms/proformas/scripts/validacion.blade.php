@@ -49,9 +49,7 @@
 		//--- validar correo
 
 		$("#correoPro").focusout(function() {
-		  focus++;
-		  console.log(focus);
-	 
+		  focus++; 	 
 		  var data = $(this).val();
 	 
 				  $.ajax({
@@ -74,12 +72,11 @@
 						  if ( data[0] == "error") { 
 							 $('#correoPro').val('');  
 							 $('#error6').val(''); 
-							 ( typeof data.correo != "undefined" )? $('#error6').text(data.correo) && $('#correoPro').focus() : null; 
+							 ( typeof data.correo != "undefined" )? $('#error6').text(data.correo): null; 
 						  }
 						  if (data.errors == 'EXISTE') { 
 							 $('#correoPro').val('');
-							 $('#error6').val('');
-							 $('#correoPro').focus(); 
+							 $('#error6').val('');   
 							 setTimeout(function() {
 								M.toast({ html: '<span>El correo ingresado ya existe. Ingrese uno distinto.</span>'});
 							 }, 800); 

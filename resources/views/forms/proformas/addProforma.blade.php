@@ -86,6 +86,7 @@
 											<i class="material-icons prefix">email</i>
 											<input id="correoPro" name="correoPro" type="email">
 											<label for="correoPro">Email</label>
+											<div id="error6" style="color: red; font-size: 12px; font-style: italic; padding-left: 3rem"></div>
 										</div>  
 										<div class="input-field col s12 m6 l6">
 											<i class="material-icons prefix">local_phone</i>
@@ -230,7 +231,8 @@
 							
 											</td> 
 							
-										</tr>  --}}  
+										</tr>  --}} 
+										  
 										 
 									</div>
 								</div>  
@@ -238,13 +240,15 @@
 						 </form>
 						@include('forms.proformas.modalAddPlan')  
 						@include('forms.proformas.modalAddEquipo') 
-						@include('forms.proformas.modalAddConceptoManual')  
+						@include('forms.proformas.modalAddConceptoManual') 
+						@include(' forms.proformas.modalEliminarConceptos ') 
 					</div>
 	</div>
 </div>
  
 @endsection 
-@section('script') 
+@section('script')
+@include('forms.proformas.scripts.validacion')  
 @include('forms.proformas.scripts.addProforma') 
 @include('forms.proformas.scripts.obtenerDireccion')  
 
