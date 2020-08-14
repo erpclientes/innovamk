@@ -254,6 +254,7 @@ class EmpresaController extends Controller
     public function update(Request $request)
     {
         //dd($request);
+        //dd($request);
         $idusu = Auth::user()->id;
         $validacion = DB::table('validacion')->where('idusuario',$idusu)->get();
         
