@@ -81,7 +81,9 @@ class ComprobanteController extends Controller
         }
 
 
-        $pdf = PDF::loadView('forms.comprobante.PDF.plantillaBoleta', compact('factura','cliente','servicio','notificaciones','empresa','dfactura','usuario','planes','equipos'));
+        /* $pdf = PDF::loadView('forms.comprobante.PDF.plantillaBoleta', compact('factura','cliente','servicio','notificaciones','empresa','dfactura','usuario','planes','equipos')); */
+
+        $pdf = PDF::loadView('forms.comprobante.PDF.plantillaReciboVenta', compact('factura','cliente','servicio','notificaciones','empresa','dfactura','usuario','planes','equipos'));
 
         //return $pdf->download(''.$comprobante.'');
         return $pdf->stream(''.$comprobante.'');

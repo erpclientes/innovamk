@@ -4,7 +4,7 @@
 	  format: "yyyy/mm/dd"
 	});
  
-  //----------------------AGREGAR-----------------------------------
+  //------JMAZUELOS TAUMA----------------AGREGAR-----------------------------------
   $("#addTecnicos").click(function(){ 
 	console.log("entro");
 
