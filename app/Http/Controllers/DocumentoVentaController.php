@@ -14,7 +14,7 @@ class DocumentoVentaController extends Controller
 
     function list() {
         $documentos = DB::table('documento_venta')
-            ->select('iddocumento', 'descripcion', 'dsc_corta', 'serie', 'correlativo', 'fecha_creacion', 'estado', 'es_boleta', 'es_factura')
+            ->select('iddocumento', 'descripcion', 'dsc_corta', 'serie', 'correlativo', 'fecha_creacion', 'estado', 'es_boleta', 'es_factura','es_proforma')
             ->whereIn('estado', [1, 2])
             ->orderBy('iddocumento', 'asc')
             ->paginate(10);
@@ -33,7 +33,7 @@ class DocumentoVentaController extends Controller
     public function buscar($descripcion)
     {
         $documentos = DB::table('documento_venta')
-            ->select('iddocumento', 'descripcion', 'dsc_corta', 'serie', 'correlativo', 'fecha_creacion', 'estado', 'es_boleta', 'es_factura')
+            ->select('iddocumento', 'descripcion', 'dsc_corta', 'serie', 'correlativo', 'fecha_creacion', 'estado', 'es_boleta', 'es_factura' ,'es_proforma')
             ->whereIn('estado', [1, 2])
             ->where('descripcion', 'like', '%' . $descripcion . '%')
             ->orderBy('iddocumento', 'asc')
@@ -68,6 +68,7 @@ class DocumentoVentaController extends Controller
                 'correlativo'    => $request->correlativo,
                 'es_boleta'      => $request->m_boleta ? '1' : '0',
                 'es_factura'     => $request->m_factura ? '1' : '0',
+                'es_proforma'     => $request->m_proforma ? '1' : '0',
                 'fecha_creacion' => date('Y-m-d H:m:s'),
                 'estado'         => '1',
             ]);
@@ -93,6 +94,7 @@ class DocumentoVentaController extends Controller
                 'correlativo' => $request->correlativo,
                 'es_boleta'   => $request->m_boleta ? '1' : '0',
                 'es_factura'  => $request->m_factura ? '1' : '0',
+                'es_proforma'     => $request->m_proforma ? '1' : '0',
             ]);
     }
 

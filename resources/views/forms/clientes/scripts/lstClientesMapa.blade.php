@@ -38,7 +38,9 @@
 		///usuarios  
 		//console.log(datamarker); 
 		if(datamarker.length <1){
-			datamarker.push(['SIN ZONA','-12.0463731','-77.042754', color,'E','40','37','SIN ZONA']);
+			datamarker.push(['SIN ZONA','-12.0463731','-77.042754', 'FFCE87','E','40','37','SIN ZONA']);
+			datamarker.push(['SIN ZONA','-0.1876219','-78.4779727', 'FFCE87','E','40','37','SIN ZONA']);
+			datamarker.push(['SIN ZONA','4.6486259','-74.2478966', 'FFCE87','E','40','37','SIN ZONA']);
 
 		}
 		

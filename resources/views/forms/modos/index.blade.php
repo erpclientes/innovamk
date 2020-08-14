@@ -155,20 +155,30 @@
                               <label for="dsc_corta">abreviatura</label>    
                               <div style="color: red; font-size: 12px; font-style: italic;" v-text="errors.dsc_corta"></div>                            
                             </div>
-                            <div class="col s12 m6 l6">
-                              <label for="dsc_corta">Modo del Equipo</label>  
-                            <p>
-                              <input type="checkbox" id="emisor" class="checkbox" v-model="m_emisor" />
-                              <label for="emisor">emisor</label>
-                            </p>
-                            <p>
-                              <input type="checkbox" id="cliente" class="checkbox" v-model="m_cliente" />
-                              <label for="cliente">Cliente</label>
-                            </p>
-                            <p>
-                              <input type="checkbox" id="router" class="checkbox" v-model="m_router" />
-                              <label for="router">Router</label>
-                            </p>
+                            <br>
+                            <div class="col s12 m6 l6 ">
+                              <label for="dsc_corta">Modo del Equipo</label>   
+                              <p>
+                                <label>
+                                  <input type="checkbox"  id="emisor" class="checkbox"  v-model="m_emisor" checked="checked" />
+                                  <span for="emisor">emisor</span>
+                                </label>
+                              </p> 
+                              <p>
+                                <label>
+                                  <input type="checkbox" id="cliente" class="checkbox"  v-model="m_cliente" checked="checked" />
+                                  <span for="emisor">Cliente</span>
+                                </label>
+                              </p> 
+                              <p>
+                                <label>
+                                  <input type="checkbox"  id="router" class="checkbox"  v-model="m_router" checked="checked" />
+                                  <span for="emisor">Router</span>
+                                </label>
+                              </p> 
+                              
+                              
+
                             </div> 
                           </div>
                         </div>
@@ -219,19 +229,26 @@
                               <div style="color: red; font-size: 12px; font-style: italic;" v-text="errors.dsc_corta"></div>                            
                             </div>
                             <div class="col s12 m6 l6">
-                              <label for="dsc_corta">Modo del Equipo</label>  
+                              <label for="dsc_corta">Modo del Equipo</label> 
+
                             <p>
-                              <input type="checkbox" id="emisor" class="checkbox" v-model="fillModo.m_emisor" />
-                              <label for="emisor">emisor</label>
-                            </p>
+                              <label>
+                                <input type="checkbox"  id="emisor" class="checkbox"  v-model="fillModo.m_emisor" checked="checked" />
+                                <span for="emisor">emisor</span>
+                              </label>
+                            </p> 
                             <p>
-                              <input type="checkbox" id="cliente" class="checkbox" v-model="fillModo.m_cliente" />
-                              <label for="cliente">Cliente</label>
-                            </p>
+                              <label>
+                                <input type="checkbox" id="cliente" class="checkbox"  v-model="fillModo.m_cliente" checked="checked" />
+                                <span for="emisor">Cliente</span>
+                              </label>
+                            </p> 
                             <p>
-                              <input type="checkbox" id="router" class="checkbox" v-model="fillModo.m_router" />
-                              <label for="router">Router</label>
-                            </p>
+                              <label>
+                                <input type="checkbox"  id="router" class="checkbox"  v-model="fillModo.m_router" checked="checked" />
+                                <span for="emisor">Router</span>
+                              </label>
+                            </p> 
                             </div>                                                                
                           </div>
                         </div>
