@@ -192,7 +192,7 @@
 									<td colspan="3" style="background-color:#FFFFFF;"></td>
 									<td  style="text-align: center;  background-color:#F7F6F6;"><b>Importe Total </b></td>
 									<td  style="text-align: center;  background-color:#F7F6F6;"><b>S/ </b></td>
-									<td style="text-align: center; background-color:#F7F6F6;"><b>S/{{ $total }} </b></td>
+									<td style="text-align: center; background-color:#F7F6F6;"><b>{{ $total }} </b></td>
 								</tr>  
 					  </tbody>
 				 </table> 

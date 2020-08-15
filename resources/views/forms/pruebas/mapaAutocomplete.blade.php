@@ -114,11 +114,7 @@
 
    @section('script')
 
-    <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCau_UwFedPo-8s5LgR5O62tbJFSTQwT3A&libraries=places&callback=initMap"
-    async
-    defer
-    ></script>
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzNnpcmAbYVlos0_fn5wxNZpR68VOtQrM"></script>
 
     @include('forms.pruebas.scripts.mapa') 
     @include('forms.pruebas.scripts.enviar') 
