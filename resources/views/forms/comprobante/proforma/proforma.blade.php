@@ -15,256 +15,262 @@
 
     </head>
     <body>  
-		@foreach($proformas as $fac) 
-      <div class="container">
-			<div class="row">
-				<div class="col-xs-5">  
-					<table> 
-						<tbody>
-							<tr> 
-								<td><img src="{{asset('/images/Comprobante/infiniti.jpg')}}"  style="width:190px;height: 100px;"alt="infiniti"></td>
-								<td><img src="{{asset('/images/Comprobante/NAVI TEL OFICIAL.jpg')}}"  style="width:200px;height: 180px;"alt="NAVI"></td> 
-							</tr>                            
-					  </tbody> 
-					 </table> 
-				</div>
-				<div class="col-xs-1"></div>  
-				<div class="col-xs-6">  
-					<table> 
-						<tbody>
-							<tr> 
-								<td style="text-align: right;" >
-									@foreach($empresa as $emp)									
-									 {{"PROFORMA"." : ".$fac->serie."-".$fac->numero}} <br>
-									{{ $emp->nombre }} <br>
-									Calle 28 de julio 301,Santo Tomas <br>
-									ventas@infiniti.com.pe <br>
-									Navitelecomunicaciones@gmail.com <br>
-									Plaza de Armas Haquira  s/n <br>
-									Cel.{{$emp->telefono   }}  
-									@endforeach 
-									
-								</td>  
-							</tr>                            
-					  </tbody> 
-					 </table> 
+		@foreach($proformas as $proforma) 
+			@foreach($empresa as $emp)
+			<div class="container">
+				<div class="row">
+						<div class="col-xs-2">  
+							<table> 
+								<tbody>
+										<tr> 
+											<td><img src="{{asset('/images/Comprobante/infiniti.jpg')}}"  style="width:110px;height: 80px;"alt="infiniti"></td>
+											<td></td> 
+										</tr>                            
+								</tbody> 
+							</table> 
+						</div>
+						{{--  <div class="col-xs-1"></div>    --}}
+						<div class="col-xs-5">  
+							<table> 
+								<tbody>
+										<tr> 
+											<td style="text-align: left;" > 								
+												<b style="font-size: 70%;" >{{ $emp->nombre }}</b> <br>
+												<p style="font-size: 65%;">
+													Domicilio Fiscal: Calle San Jose 206, Cercado Arequipa Plaza de Armas Haquira s/n <br>
+													AREQUIPA - AREQUIPA - AREQUIPA <br>
+													Móvil: 956267980 - 997017574 <br>
+													Email: ventas@infiniti.com.pe<br><br>
+													Venta de accesiorios de camaras de seguridad y computo <br>
+													Antenas - TV - WIFI - al por mayor y menor 
+												</p>  
+												
+											</td>  
+										</tr>                            
+								</tbody> 
+							</table> 
+						</div> 
+						<div class="col-xs-3" style="border-style: solid; width:210px;height:135px ;">  
+							<table> 
+								<tbody>
+									<tr> 
+										<td style="text-align: center;font-size: 110%;" >
+											<br> 							
+											<b>R.U.C. N°{{ $emp->RUC }}</b> <br> 
+											<b>PROFORMA </b><br> 
+											<b>{{ $proforma->serie."-".$proforma->numero}}</b> <br>
+											
+										</td>  
+									</tr>                            
+							</tbody> 
+							</table> 
+						</div>  
+				</div>  
+			@endforeach
+			@foreach($cliente as $clie) 
+			<div class="row" style="border-style: solid; width:710px;height:38px ;"> 
+				<div class="col-xs-6"  >
+					<table    style="font-size:50%;"> 
+						<tbody  >  
+								<tr>
+									<td style="width:110px;" ><b>Nombres/Razón Social </b></td>
+									<td>: {{ $clie->nombres }}  {{ $clie->apaterno }}  {{ $clie->amaterno }}</td> 
+									<br><br><br>
+								</tr>  
+								<tr  > 
+									<td><b>DNI/RUC</b></td>
+									<td >: {{ $clie->nro_documento }}</td> <br><br>
+								</tr> 
+								<tr> 
+								  <td><b>Dirección</b></td>
+								  <td>: {{ $clie->direccion }}</td> <br><br>
+								</tr>
+								
+						</tbody>
+				  </table> 
 				</div>   
-		  </div>
-		<hr style="margin-top: 4px"> 
-		@foreach($cliente as $clie) 
-		<div class="row" style="text-align: center;"> 
-			<div class="col-xs-5"  >
-				<table  class="table table-hover table-striped " style="font-size:75%;"> 
-					<tbody  >  
-							<tr style=" border: 0ex;" >
-								<td style="background-color: #FFCE87; border: 0ex;width:80px;"><b>Cliente: </b></td>
-								<td style=" border: 0ex; ">{{ $clie->nombres }}  {{ $clie->apaterno }}  {{ $clie->amaterno }}</td> 
-							</tr> 
-							<tr style=" border: 0ex; border: 0ex;"> 
-								<td style="background-color: #FFCE87 ;  border: 0ex;"><b>DNI/RUC:</b></td>
-								<td style=" border: 0ex;"> {{ $clie->nro_documento }}</td> 
-							 </tr>
-							<tr style=" border: 0ex;" > 
-							  <td style="background-color: #FFCE87 ;border: 0ex; "><b>Dirección:</b></td>
-							  <td style=" border: 0ex;"> {{ $clie->direccion }}</td> 
-							</tr>
-							<tr style=" border: 0ex;" > 
-							  <td style="background-color: #FFCE87 ;border: 0ex; "><b>Telefono:</b></td>
-							  <td style=" border: 0ex;">{{ $clie->telefono1 }}</td> 
-							</tr>
-							<tr style=" border: 0ex;" > 
-							  <td style="background-color: #FFCE87 ;border: 0ex; "><b>Forma de pago:</b></td>
-							  <td style=" border: 0ex;">FISICO/EFECTIVO</td> 
-							</tr> 
-							
-					</tbody>
-			  </table> 
-			 </div>   
-			<div class="col-xs-5" >
-				<table  class="table table-hover table-striped"  style="font-size:75%;"> 
-					<tbody > 
+				<div class="col-xs-5"  >
+					<table  style="font-size:50%;"> 
+						<tbody >  
+							<tr> 
+								<td style="width:90px; "><b>Fecha emisión </b></td>
+								<td>: {{$proforma->fecha_emision}}</td> 
+							 </tr>   
 							@foreach($usuario as $user) 
-							<tr style=" border: 0ex;"> 
-							<td style="background-color: #FFCE87 ; border: 0ex;width:60px;  "><b>Ejecutivo de ventas:</b></td>
-							<td style=" border: 0ex;"> {{ $user->nombre }}  {{ $user->apellidos }} </td> 
-							</tr>
-							@endforeach 
-								
-							 <tr style=" border: 0ex; border: 0ex;">
-								 <td style="background-color: #FFCE87;  border: 0ex;"><b>Sede: </b></td>
-								 <td style=" border: 0ex;">HAQUIRA </td> 
-							 </tr> 
-							 
-
-							 <tr style=" border: 0ex; border: 0ex;"> 
-								<td style="background-color: #FFCE87 ; border: 0ex; "><b>F.Emisión:</b></td>
-								<?php 
-									$originalDate = $fac->fecha_emision ;
-									$newDate = date("d/m/Y", strtotime($originalDate)); 
-								?>
-
-								<td style=" border: 0ex;"> {{  $newDate }}</td> 
-								 
+							 <tr> 
+								<td><b>Vendedor</b></td>
+								<td>: {{ $user->nombre }}  {{ $user->apellidos }} </td> 
 							 </tr>
-							 <tr style=" border: 0ex; border: 0ex;"> 
-								<td style="background-color: #FFCE87 ; border: 0ex; "><b>F.Vencimiento:</b></td>
+							 @endforeach  
+						</tbody>
+				  </table> 
+				</div> 
+		   </div >  
+			@endforeach
+
+			<div class="row"  style="  width:610px;height:200px;padding-top:2px">   
+					<table  style="font-size: 57%;"> 
+						<thead style="background-color:#9D9D9D; "  >
+								<tr  >
+									<th style="width:85px;border-style: solid;text-align: center;">Código</th> 
+									<th style="width:80px;border-style: solid;text-align: center;" >Cantidad</th>
+									<th style="width:85px;border-style: solid;text-align: center;" >Unidad</th>
+									<th style="width:280px;border-style: solid;text-align: center;">Descripción</th>
+									<th style="width:85px;border-style: solid;text-align: center;">Precio unitario</th> 
+									<th style="width:85px;border-style: solid;text-align: center;">Precio total
+									</th>
+								</tr>                            
+						</thead>
+						<tbody> 
 									<?php 
-										$originalDateFin = $fac->fecha_vencimiento ;
-										$newDateFin = date("d/m/Y", strtotime($originalDateFin)); 
-										//dd($newDateFin);
-									?>  
-								<td style=" border: 0ex;"> {{ $newDateFin }}	 </td> 
-								
-							 </tr>
-							  
+										$total=null;
+										foreach ($dproforma as $prof) { 
+										$e=0;
+										$codigoF=null;
+										
+										
+									?>
+								<tr>
+									@if (!is_null($prof->idequipo)) 
+										<td style="text-align: center;width:85px;border: solid;">{{ $prof->idequipo }}</td> 
+										<td style="text-align: center;width:80px;border: solid;">{{ $prof->cantidad}}</td>
+										<td style="text-align: center;width:85px;border: solid;">UNID.</td>
 
-
-					</tbody>
-			  </table> 
-			</div> 
-	  </div>  
-		@endforeach 
-	  <hr style="margin-top: 3px"> 
-		<div class="row">                
-			<div class="col-xs-12">
-				<?php 
- 
-							  $bandera = false;
- 
-							  if (count($dproforma) > 0) {
-								 # code...
-								 $bandera = true;
-								 $i = 0;
-							  }
- 
-				?> 
-				<table class="table table-hover table-striped" style="font-size:80%;">
-					  <thead style="background-color: orange;text-align: center; "  >
-							<tr>
-								<th>#</th>
-								 <th>CANT.</th>
-								 <th>UNID.</th>
-								 <th>CODIGO</th> 
-								 <th>DESCRIPCIÓN</th>
-								 <th>P.UNIT.</th> 
-								 <th >IMPORTE</th>
-							</tr>                            
-					  </thead>
-					  <tbody> 
-						<?php 
-							$total=null;
-							foreach ($dproforma as $dprof) {
-							$i++;
-							$e=0;
-							$codigoF=null;
-							
-							
-						?>
-							<tr>
-								<td>{{ $i }}</td>
-								<td style="text-align: center;">1</td>
-								<td style="text-align: center;">UNID.</td> 
-								<?php  
-									$total=$total+$dprof->subtotal; 
-								?>
-
-									@if (!is_null($dprof->idplan))
-									<td style="text-align: center;">{{ $dprof->idplan }}</td>
+										@foreach ($equipos as $equipo)
+													@if ( $prof->idequipo ==  $equipo->idequipo )
+														<td style="text-align: left;width:280px;border: solid;"  > 
+															<b style="text-align:center; ">Equipo de Internet :</b><br>
+															<b>descripción :</b> {{  $equipo->descripcion }} <br>  
+															<b>marca:</b> {{  $equipo->marca }} <br>
+															<b>modelo :</b> {{  $equipo->modelo }}
+														</td> 
+													@endif  
+										@endforeach 	
+									@endif
+									@if (!is_null($prof->idplan))
+										<td style="text-align: center;width:85px;border: solid;">{{ $prof->idplan }}</td>
+										<td style="text-align: center;width:80px;border: solid;">{{ $prof->cantidad}}</td>
+										<td style="text-align: center;width:85px;border: solid;">UNID.</td>
 										@foreach ($planes as $plan)
-											@if ( $dprof->idplan ==  $plan->idperfil )
-												<td style="text-align: left;font-size:80%;padding-top: 0ex;"  >
-													<b style="text-align: center;">Servicio de Internet Banda ancha :</b> <br>
-													<b>Plan de Internet :</b> {{  $plan->name }} <br>
-													<b>Descarga :</b> {{  $plan->vbajada }} <br>
-													<b>Subida :</b> {{  $plan->vsubida }}
-												</td> 
-											@endif  
+														@if ( $prof->idplan ==  $plan->idperfil )
+															<td style="width: 280px;border: solid;"  >
+																<b style="text-align: center;">Servicio de Internet Banda ancha :</b> <br>
+																<b>Plan de Internet :</b> {{  $plan->name }} <br>
+																<b>Descarga :</b> {{  $plan->vbajada }} <br>
+																<b>Subida :</b> {{  $plan->vsubida }}
+															</td> 
+														@endif  
 										@endforeach
-									@endif 
-									@if (!is_null($dprof->idequipo))
-									<td style="text-align: center;">{{ $dprof->idequipo }}</td>
-											@foreach ($equipos as $equipo)
-												@if ( $dprof->idequipo ==  $equipo->idequipo )
-													<td style="text-align: left;font-size:80%;padding-top: 0ex;"  > 
-														<b style="text-align:center; ">Equipo de Internet :</b><br>
-														<b>descripción :</b> {{  $equipo->descripcion }} <br>  
-														<b>marca:</b> {{  $equipo->marca }} <br>
-														<b>modelo :</b> {{  $equipo->modelo }}
-													</td> 
-												@endif  
-											@endforeach
 										
+											
 									@endif 
-									@if (!is_null($dprof->idconcepto))
-									<td style="text-align: center;">{{ $dprof->idconcepto }}</td>
-									<td style="text-align: center;">{{ $dprof->descripcion }}</td>
+									@if (!is_null($prof->idconcepto))
+										<td style="text-align: center;width:85px;border: solid;">{{ $prof->idconcepto }}</td>
+										<td style="text-align: center;width:80px;border: solid;">{{ $prof->cantidad}}</td>
+										<td style="text-align: center;width:85px;border: solid;">UNID.</td>
+										<td style="text-align: left;font-size:85%;border: solid;"  >
+												{{ $prof->descripcion }}									 
+										</td>  
+									@endif  
+									<?php $total=$total+$prof->subtotal;?>   
+									<td style="width:85px;border: solid; text-align: center;">{{ $prof->precio }}</td> 
+									<td style="width:85px;border: solid; text-align: center;">{{ $prof->subtotal }}</td>
+								</tr>
+										<?php }  ?> 
+									<tr>
+										<td colspan="6" style="background-color:#FFFFFF;border: solid;"><div style="width:100px;text-align: center;">SON: {{ $total }} SOLES</div></td>
 										
-									@endif 
-
-								
-								
-
-
-								<td>{{ $dprof->precio }}</td> 
-								<td >{{ $dprof->subtotal }}</td>
-							</tr>
-						<?php }       ?>  
-							<tr>
-								<td colspan="4" style="background-color:#FFFFFF;"></td>
-								<td colspan="2" style="text-align: center;  background-color:#F7F6F6;"><b>TOTAL</b></td>
-								<td style="text-align: center; background-color:#F7F6F6;"><b>S/{{ $total }} </b></td>
-							 </tr>  
-					  </tbody>
-				 </table>
-				
+									</tr> 
+									<tr  >
+										<td colspan="3" style="background-color:#FFFFFF;"></td>
+										<td  style="text-align: center;  background-color:#F7F6F6;"><b>Importe Total </b></td>
+										<td  style="text-align: center;  background-color:#F7F6F6;"><b>S/ </b></td>
+										<td style="text-align: center; background-color:#F7F6F6;"><b>{{ $total }} </b></td>
+									</tr>  
+						</tbody>
+					</table>  
+				     
 			</div>
-	  </div>  
+			<div class="row"  style="  width:610px;height:50px;padding-top:2px"> 
+				<p style="font-size:55%;"><b>NUMERO DE CUENTA PARA REALIZAR PAGOS Y/O TRANSFERNCIA</b></p> 
+					<table  style="font-size: 57%;">  
+						<thead style="background-color:#9D9D9D; ">
+							<tr>
+								<th style="border-style: solid;text-align: center;width: 30px;">BANCO</th> 
+								<th style="border-style: solid;text-align: center;width: 35px;" >MONEDA</th>
+								<th style="border-style: solid;text-align: center;width: 70px;" >CUENTA</th>
+								<th style="border-style: solid;text-align: center;width: 100px;" >Nº</th>
+								<th style="border-style: solid;text-align: center;width: 105px;">CUENTA TITULAR</th> 
+							</tr>                            
+						</thead>
+						<tbody>  
+							<tr>    
+								<td style="border: solid; text-align: center;width: 30px;">BCP</td> 
+								<td style="border: solid; text-align: center;width: 35px;">SOLES</td>
+								<td style="border: solid; text-align: center;width: 70px;">CORRIENTE</td> 
+								<td style="border: solid; text-align: center;width: 100px;">  </td>
+								<td style="border: solid; text-align: center;width: 105px;"> </td>  
+							</tr>
+							<tr>    
+								<td style="border: solid; text-align: center;width: 30px;">BCP</td> 
+								<td style="border: solid; text-align: center;width: 35px;">SOLES</td>
+								<td style="border: solid; text-align: center;width: 70px;">CORRIENTE</td> 
+								<td style="border: solid; text-align: center;width: 100px;">  </td>
+								<td style="border: solid; text-align: center;width: 105px;"> </td>  
+							</tr>  
+						</tbody>
+					</table>   
+				
+			</div> 
+
+
+
+	  <br>
 	  <hr style="margin-top: 3px"> 
 	  <div class="row">                
-		<div class="col-xs-11">	 
-			<table  class="table-striped" style="font-size:80%;">
-				  <thead  >
-						<tr> 
-							 <th colspan="2" ><b>CONDICIONES:</b></th> 
-						</tr>                            
-				  </thead>
-				  <tbody>  
-						<tr> <td style="width:10px;"></td>
-							<td >- propuesta valida por 15 dias.</td> 
-						</tr> 
-						<tr> 
-							<td></td>
-							<td >- Equipos en calidad de comodato,cesion en uso,    arrendamiento o cualquier otra modalidad que no implique su transferencia. </td> 
-						</tr> 
-						<tr> 
-							<td></td>
-							<td >- Tiempo de permanencia minima 12 meses ,  si el contrato es menos de 12 meses el costo de instalacion es de  s/.399 por fibra.</td>
-							
-						</tr> 
-						<tr> 
-							<td></td>
-							<td >- La penalidad por retiro anticipado es de s/ 599.00  Soles. </td> 
-						</tr> 
-						<tr>
-							<td></td>
-							<td >- Tiempo de permanencia de contrato acordado:12 meses</td>  
-						</tr>
-						<tr>
-							<td></td>
-							<td >- Internet con contencion 4:1, velocidad garantizada al 50% del plan contratado.No incluye antivirus licenciado,lp publica, configuracion de VPN,VLAN,U otros  de configuracion avanzada. </td>
+			<div class="col-xs-11">	 
+					<table  class="table-striped" style="font-size:57%;">
+						<thead  >
+								<tr> 
+									<th colspan="2" ><b>CONDICIONES:</b></th> 
+								</tr>                            
+						</thead>
+						<tbody>  
+								<tr> <td style="width:10px;"></td>
+									<td >- Propuesta valida por 15 dias.</td> 
+								</tr> 
+								<tr> 
+									<td></td>
+									<td >- Equipos en calidad de comodato,cesion en uso,    arrendamiento o cualquier otra modalidad que no implique su transferencia. </td> 
+								</tr> 
+								<tr> 
+									<td></td>
+									<td >- Tiempo de permanencia minima 12 meses ,  si el contrato es menos de 12 meses el costo de instalacion es de  s/.399 por fibra.</td>
+									
+								</tr> 
+								<tr> 
+									<td></td>
+									<td >- La penalidad por retiro anticipado es de s/ 599.00  Soles. </td> 
+								</tr> 
+								<tr>
+									<td></td>
+									<td >- Tiempo de permanencia de contrato acordado:12 meses</td>  
+								</tr>
+								<tr>
+									<td></td>
+									<td >- Internet con contencion 4:1, velocidad garantizada al 50% del plan contratado.No incluye antivirus licenciado,lp publica, configuracion de VPN,VLAN,U otros  de configuracion avanzada. </td>
 
-						</tr>
-						<tr>
-							<td></td>
-							<td >- Los pagos de la mensualidad son prepago.</td> 
-						</tr>
+								</tr>
+								<tr>
+									<td></td>
+									<td >- Los pagos de la mensualidad son prepago.</td> 
+								</tr>
 
-						 
-				  </tbody>
-			 </table>
-			
-		</div>
-  </div> 
+								
+						</tbody>
+					</table> 
+			</div>
+  	  </div> 
 
 
 

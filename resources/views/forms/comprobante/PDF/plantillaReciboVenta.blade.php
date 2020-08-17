@@ -94,7 +94,7 @@
 					<tbody >  
 						<tr> 
 							<td style="width:90px; "><b>Fecha emisión </b></td>
-							<td>: {{$fac->fecha_inicio}}</td> 
+							<td>: {{$fac->fecha_emision}}</td> 
 						 </tr>   
 						@foreach($usuario as $user) 
 						 <tr> 

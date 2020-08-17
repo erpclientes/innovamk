@@ -33,7 +33,11 @@
 								<div class="card white">
 									<div class="card-content" style="padding-bottom: 5px; padding-top: 10px">
 										<span class="card-title">Datos Generales</span>
-						
+										<div class="input-field col s12 m6 l12 "> 
+											<div class="col  s6 m2 l2 left" ><p >	CORRELATIVO :</p></div>
+											<div  class="col  s6 m10 9" ><p style="border-bottom: solid;width:120px ;" >{{ $serie }}-{{$correlativo }}</p></div>
+												
+										</div><br>	<br>					
 										<div class="col s12 m6 l6">                                                                
 											<label for="iddocumentoPro">Documento</label>
 											@foreach($parametros as $datos)
@@ -64,12 +68,7 @@
 											<label for="nro_documentoPro">Nro. Documento</label>
 											<div id="error2" style="color: red; font-size: 12px; font-style: italic; padding-left: 3rem"></div>
 										</div>        
-										<div class="input-field col s12 m6 l6">
-											<i class="material-icons prefix">perm_identity</i>
-											<input id="apaternoPro" name="apaternoPro" type="text" data-error=".errorTxt3">
-											<label for="apaternoPro">Apellido Paterno</label>
-											<div id="error3" style="color: red; font-size: 12px; font-style: italic; padding-left: 3rem"></div>
-										</div>
+										
 										<div class="input-field col s12 m6 l6">
 											<i class="material-icons prefix">perm_identity</i>
 											<input id="amaternoPro" name="amaternoPro" type="text" data-error=".errorTxt4">
