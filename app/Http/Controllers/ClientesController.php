@@ -145,10 +145,10 @@ class ClientesController extends Controller
         $idservicio = null;
         foreach ($servicio as $serv) {
             $idservicio = $serv->idservicio;
-        }
+        } 
 
         $notificaciones = DB::table('notificaciones')
-            ->where('idservicio', $idservicio)->get();
+            /* ->where('idservicio', $idservicio) */->get();
 
         $tipo_documento = DB::table('documento')
             ->select('iddocumento', 'descripcion', 'dsc_corta')

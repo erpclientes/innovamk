@@ -68,7 +68,7 @@
 													<th>Estado</th>
 													<th>Acción</th>
 												</tr>
-												</tfoot>
+											</tfoot>
 	
 											<tbody>
 												<tr>
@@ -118,7 +118,7 @@
 														@endif
 												  </td>
 													<td class="center" style="width: 9rem"> 
-														<a href="{{url('/proformas/mostrar')}}/{{$datos->codigo}}" class="btn-floating waves-effect waves-light grey lighten-5 tooltipped" data-position="top" data-delay="500" data-tooltip="Descargar PDF">
+														<a href="{{url('/proformas/mostrar')}}/{{$datos->codigo}}" target="_blank" class="btn-floating waves-effect waves-light grey lighten-5 tooltipped" data-position="top" data-delay="500" data-tooltip="Descargar PDF">
 															<i class="material-icons grey-text text-darken-2">vertical_align_bottom</i></a>
 														
 														<a href="#confirmacion{{$i}}" class="btn-floating waves-effect waves-light grey lighten-5 tooltipped modal-trigger" data-position="top" data-delay="500" data-tooltip="Eliminar">

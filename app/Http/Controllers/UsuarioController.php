@@ -31,7 +31,8 @@ class UsuarioController extends Controller
 
         //--
 
-        $usuarios = DB::table('users')->where('idtipo', 'ADM')->get();
+        $usuarios = DB::table('users')->whereIn('idtipo', ['ADM','VEN','TEC'])->get();
+        //dd($usuarios);
         //$usuarios = DB::table('users')->where('estado', 1)->get();
 
         return view('forms.usuarios.lstUsuarios', [
@@ -76,17 +77,18 @@ class UsuarioController extends Controller
             array_push($var, 'error');            
             return response()->json($var);
         }
-
+        //dd("validacion");
         $idusu = Auth::user()->id;
         $validacion = DB::table('validacion')->where('idusuario',$idusu)->get();
-        $parametros = DB::table('parametros')->where('tipo_parametro',['CLIENTES','FACTURACION'])->get();
+        $parametros = DB::table('parametros')->whereIn('tipo_parametro',['CLIENTES','FACTURACION','GENERAL'])->get();
 
         foreach ($parametros as $parametro) {
             if ($parametro->parametro == 'AUTORIZACION_ESTADO') {
-                $autoriza = $parametro->valor;
+                $autoriza = $parametro->valor; 
             }
         }
-
+        //dd($parametros);
+        //dd($autoriza,Auth::user()->idtipo);
         //$id = count(DB::table('users')->get()) + 1;
         if ($autoriza == 'SI' and Auth::user()->idtipo != 'ADM') {
             DB::table('users')

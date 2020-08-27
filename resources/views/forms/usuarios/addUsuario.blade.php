@@ -46,7 +46,7 @@
                                     <option value="GEN">Genérico</option> 
                                     <option value="PVE">Punto de Venta</option>                                    
                                   </select>
-                                  <div class="errorTxt1"></div>
+                                  <div class="errorTxt1" id="error8" style="color: red; font-size: 8px; font-style: italic;"></div> 
                                 </div>
                                 <div class="col s12 m6 l6">
                                   <label for="idempresa">Empresa</label>                 
@@ -56,7 +56,7 @@
                                     <option value="{{$datos->idempresa}}"> {{$datos->razon_social}}</option>
                                     @endforeach
                                   </select>
-                                  <div class="errorTxt1"></div>
+                                  <div class="errorTxt1" id="error9" style="color: red; font-size: 8px; font-style: italic;"></div> 
                                 </div>
                                 <div class="col s12 m6 l6">
                                   <label for="idempresa">Tipo documento</label>  

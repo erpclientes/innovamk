@@ -29,6 +29,8 @@
                 ( typeof data.usuario != "undefined" )? $('#error5').text(data.usuario) : null;
                 ( typeof data.email != "undefined" )? $('#error6').text(data.email) : null;
                 ( typeof data.password != "undefined" )? $('#error7').text(data.password) : null;
+                ( typeof data.idtipo != "undefined" )? $('#error8').text(data.idtipo) : null;
+                ( typeof data.idempresa != "undefined" )? $('#error9').text(data.idempresa) : null; 
               } else {   
 
                 //alert(data.success);

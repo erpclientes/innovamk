@@ -65,7 +65,7 @@
 
   $("#modalActualizarClienteDir").click(function(g){
     g.preventDefault();
-    console.log("ingreso");
+    //console.log("ingreso");
     var datos = []; 
     var latitud , longitud,direccion ;
     

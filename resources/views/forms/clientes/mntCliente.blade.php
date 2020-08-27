@@ -238,88 +238,124 @@
 
   
 
-  <div class="col s12 m5 l3 bordes" style="padding-left: 5px">
-                                <ul id="task-card" class="collection with-header" style="box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);" >
-                                    <li class="collection-header cyan">
-                                        <h4 class="task-card-title">Resumen</h4>
-                                        <p class="task-card-date">Notificaciones</p>
-                                    </li>
-                                   
-                                    <li class="collection-item dismissable grey-text darken-1" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                                        <i class="material-icons">event</i>
-                                        Día Pago
-                                        <a href="#" class="secondary-content"><span class="task-cat teal">
-                                          @if(count($notificaciones) > 0)
-                                            @foreach($notificaciones as $val)
-                                              @if($val->aviso >0)
-                                                {{ date_format(date_create($val->fecha_pago),'d/m/Y') }}
-                                              @else
-                                                Desabilitado
-                                              @endif
-                                            @endforeach
-                                          @else
-                                            Desabilitado
-                                          @endif
-                                          </span></a>
-                                    </li>
-
-                                    <li class="collection-item dismissable grey-text darken-1" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                                        <i class="material-icons">credit_card</i>
-                                        Facturación
-                                        <a href="#" class="secondary-content"><span class="task-cat purple">
-                                          @if(count($notificaciones) > 0)
-                                            @foreach($notificaciones as $val)
-                                              @if($val->aviso >0)
-                                                {{ date_format(date_create($val->fecha_facturacion),'d/m/Y') }}
-                                              @else
-                                                Desabilitado
-                                              @endif                                              
-                                            @endforeach
-                                          @else
-                                            Desabilitado
-                                          @endif
-                                        </span></a>
-                                        
-                                    </li>
-                                   
-                                    <li class="collection-item dismissable grey-text darken-1" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                                        <i class="material-icons">alarm</i>
-                                        Aviso
-                                        <a href="#" class="secondary-content"><span class="task-cat  amber darken-2">
-                                          @if(count($notificaciones) > 0)
-                                            @foreach($notificaciones as $val)
-                                              @if($val->aviso >0)
-                                                {{ date_format(date_create($val->fecha_aviso),'d/m/Y') }}
-                                              @else
-                                                Desabilitado
-                                              @endif                                              
-                                            @endforeach
-                                          @else
-                                            Desabilitado
-                                          @endif
-                                        </span></a>
-                                        
-                                    </li>
-                                    <li class="collection-item dismissable grey-text darken-1" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-                                        <i class="material-icons">report_problem</i>
-                                        Corte
-                                        <a href="#" class="secondary-content"><span class="task-cat indigo darken-1">
-                                          @if(count($notificaciones) > 0)
-                                            @foreach($notificaciones as $val)                                              
-                                              @if($val->corte > 0)
-                                                {{ date_format(date_create($val->fecha_corte),'d/m/Y') }}
-                                              @else
-                                                Desabilitado
-                                              @endif        
-                                            @endforeach
-                                          @else
-                                            Desabilitado
-                                          @endif
-                                        </span></a>
-                                        
-                                    </li>
+                            {{--  <div class="col s12 m5 l3 bordes" style="padding-left: 5px">
+                                <ul id="task-card" class="collection with-header" style="box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);" >  --}}
                                     
-                                </ul>
+                                    @if(count($servicio) > 0)
+                                      @foreach($servicio as $ser)
+                                        @foreach ($notificaciones as $val)
+                                          @if ($ser->idservicio==$val->idservicio)
+                                          <ul id="task-card" class="collection with-header" style="box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);" >
+                                              <li class="collection-header cyan">
+                                                <h4 class="task-card-title">Resumen</h4>
+                                                <p class="task-card-date">Notificaciones</p>
+                                                @foreach($perfiles as $perfil)
+                                                  @if($perfil->idperfil == $ser->perfil_internet) 
+                                                    <p class="task-card-date">Servicio : {{$perfil->name}} </p>
+                                                  @endif
+                                                @endforeach  
+                                                
+                                              </li> 
+                                              <li class="collection-item dismissable grey-text darken-1" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                                <i class="material-icons">event</i>
+                                                Día Pago
+                                                <a href="#" class="secondary-content"><span class="task-cat teal">
+                                                      @if($val->aviso >0)
+                                                        {{ date_format(date_create($val->fecha_pago),'d/m/Y') }}
+                                                      @else
+                                                        Desabilitado
+                                                      @endif
+                                                  </span></a>
+                                              </li>
+
+                                              <li class="collection-item dismissable grey-text darken-1" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                                  <i class="material-icons">credit_card</i>
+                                                  Facturación
+                                                  <a href="#" class="secondary-content"><span class="task-cat purple"> 
+                                                    @if($val->aviso >0)
+                                                      {{ date_format(date_create($val->fecha_facturacion),'d/m/Y') }}
+                                                    @else
+                                                      Desabilitado
+                                                    @endif 
+                                                  </span></a>
+                                                  
+                                              </li>
+                                            
+                                              <li class="collection-item dismissable grey-text darken-1" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                                  <i class="material-icons">alarm</i>
+                                                  Aviso
+                                                  <a href="#" class="secondary-content"><span class="task-cat  amber darken-2">
+                                                    @if($val->aviso >0)
+                                                      {{ date_format(date_create($val->fecha_aviso),'d/m/Y') }}
+                                                    @else
+                                                      Desabilitado
+                                                    @endif
+                                                  </span></a>
+                                                  
+                                              </li>
+                                              <li class="collection-item dismissable grey-text darken-1" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                                  <i class="material-icons">report_problem</i>
+                                                  Corte
+                                                  <a href="#" class="secondary-content"><span class="task-cat indigo darken-1">                                          
+                                                    @if($val->corte > 0)
+                                                      {{ date_format(date_create($val->fecha_corte),'d/m/Y') }}
+                                                    @else
+                                                      Desabilitado
+                                                    @endif
+                                                  </span></a>
+                                                  
+                                              </li>
+                                         </ul>
+                                        @endif
+                                            
+                                      @endforeach
+                                      @endforeach
+                                    @else
+                                    
+                                    <ul id="task-card" class="collection with-header" style="box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);" >
+                                        <li class="collection-header cyan">
+                                          <h4 class="task-card-title">Resumen</h4>
+                                          <p class="task-card-date">Notificaciones</p>
+                                        </li>
+                                        <li class="collection-item dismissable grey-text darken-1" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                            <i class="material-icons">event</i>
+                                            Día Pago
+                                            <a href="#" class="secondary-content"><span class="task-cat teal">
+                                              Desabilitado
+                                              </span></a>
+                                        </li>
+  
+                                        <li class="collection-item dismissable grey-text darken-1" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                            <i class="material-icons">credit_card</i>
+                                            Facturación
+                                            <a href="#" class="secondary-content"><span class="task-cat purple">
+                                              Desabilitado
+                                            </span></a>
+                                            
+                                        </li>
+                                      
+                                        <li class="collection-item dismissable grey-text darken-1" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                            <i class="material-icons">alarm</i>
+                                            Aviso
+                                            <a href="#" class="secondary-content"><span class="task-cat  amber darken-2">
+                                              Desabilitado
+                                            </span></a>
+                                            
+                                        </li>
+                                        <li class="collection-item dismissable grey-text darken-1" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                            <i class="material-icons">report_problem</i>
+                                            Corte
+                                            <a href="#" class="secondary-content"><span class="task-cat indigo darken-1">
+                                              Desabilitado
+                                            </span></a>
+                                            
+                                        </li>
+                                      </ul>
+                                    @endif
+                                   
+                                    
+                                    
+                                {{--  </ul>  --}}
                             </div>
 
                             @if(!is_null($datos->longitud ))
