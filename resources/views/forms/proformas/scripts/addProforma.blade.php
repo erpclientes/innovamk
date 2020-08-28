@@ -21,23 +21,25 @@
 	});
 	//---------------JMAZUELOS 23/07/2020- eliminar datos de la tabla --------- ----------------- 
 	function eliminar_elemento(valor){ 
-		ActualizarDescuento();
-		fila='fila'+valor;//--id del tr a eliminar   
-		//-buscar y eliminar el elemnto  de la tabla
-		for (var i = 0; i < detalle.length; i++) { 
-			//detalle[i][0]-id del array
-			//detalle[i][1]-elemento html del array 
-			if(detalle[i][0]==fila){
-				detalle.splice(i,1); 
+		$('#EliminarConcepto').modal('open');
+		$('#cancelarVerificacion').on('click',function (j) {
+			ActualizarDescuento();
+			fila='fila'+valor;//--id del tr a eliminar   
+			//-buscar y eliminar el elemnto  de la tabla
+			for (var i = 0; i < detalle.length; i++) { 
+				//detalle[i][0]-id del array
+				//detalle[i][1]-elemento html del array 
+				if(detalle[i][0]==fila){
+					detalle.splice(i,1); 
+				}  
 			}  
-		}  
-		//------------captar descuento ingresado en la vista y guardarlo en el array
-		  
-		limpiarTabla();//funcion para limpiar tabla  
-		pintarTabla(detalle)////agregamos los nuevos elementos a la tabla 
-		//-------pintar el descuento ingresado en el array y mostrarlo en la vista
-		ActualizarDescuentoTabla();
-		//console.log(detalle);  
+			//------------captar descuento ingresado en la vista y guardarlo en el array 
+			limpiarTabla();//funcion para limpiar tabla  
+			pintarTabla(detalle)////agregamos los nuevos elementos a la tabla 
+			//-------pintar el descuento ingresado en el array y mostrarlo en la vista
+			ActualizarDescuentoTabla();
+			//console.log(detalle);  
+		});   
 	} 
 	//---------------JMAZUELOS 23/07/2020-limpiar datos de la tabla -------------------------------------------------------- 
 	function limpiarTabla(){

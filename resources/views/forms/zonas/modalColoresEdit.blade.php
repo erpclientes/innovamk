@@ -20,7 +20,7 @@
 		$('body').on('click', '.col div', function(){ 
 		$div = this.innerHTML;
 		var colores = this.innerHTML; 
-		console.log(colores.substr(1,7));  
+		//console.log(colores.substr(1,7));  
 		//$('#color').val(colores.substr(1,7));
 		$('#color1').val(colores.substr(1,7)); 
 		$('#color1').focus(); 

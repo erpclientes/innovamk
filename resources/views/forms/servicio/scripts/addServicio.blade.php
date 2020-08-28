@@ -61,6 +61,7 @@
     //----------------------AGREGAR-----------------------------------
     $("#add").click(function(e){
         e.preventDefault();
+        console.log("ingreso");
 
         //var _token = $("input[name=_token]").val();
         var parent = $("select[name=parent]").val();
@@ -78,15 +79,19 @@
         var fecha_instalacion = $("input[name=fecha_instalacion]").val();
         var dia_pago = $("input[name=dia_pago]").val();
         var precio = $("input[name=precio]").val();
-        var emisor_conectado = $("select[name=emisor_conectado]").val();
-        var equipo_receptor = $("select[name=equipo_receptor]").val();
-        var ip_receptor = $("input[name=ip_receptor]").val();
-        var usuario_receptor = $("input[name=usuario_receptor]").val();
-        var contrasena_receptor = $("input[name=contrasena_receptor]").val();
         var glosa = $("text[name=glosa]").val();
         var zonas = $("select[name=zonas]").val();
+        var ip_receptor = $("input[name=ip_receptor]").val();
 
-
+        var facturable = $("select[name=facturable]").val(); 
+        var instalacion = $("select[name=instalacion]").val();  
+        var valorInstalacion = $("input[name=precioInstalacion]").val(); 
+        var tecnico = $("input[name=idTecnico]").val();  
+        var documentoTecnico = $("input[name=documentoTecnico]").val();  
+       /* var emisor_conectado = $("select[name=emisor_conectado]").val();
+        var equipo_receptor = $("select[name=equipo_receptor]").val(); 
+        var usuario_receptor = $("input[name=usuario_receptor]").val();
+        var contrasena_receptor = $("input[name=contrasena_receptor]").val();  */ 
         $.ajax({
             url: "{{ url('/servicio/grabar') }}",
             type:"POST",
@@ -113,15 +118,16 @@
               mac:mac,
               fecha_instalacion:fecha_instalacion,
               dia_pago:dia_pago,
-              precio:precio,
-              emisor_conectado:emisor_conectado,
-              equipo_receptor:equipo_receptor,
-              ip_receptor:ip_receptor,
-              usuario_receptor:usuario_receptor,
-              contrasena_receptor:contrasena_receptor,
+              precio:precio, 
               glosa:glosa,
               zonas:zonas,
-              idcliente:"{{$idcliente}}"
+              idcliente:"{{$idcliente}}",
+
+              facturable:facturable,
+              instalacion:instalacion,
+              valorInstalacion:valorInstalacion,
+              tecnico:tecnico,
+              documentoTecnico:documentoTecnico
            },
 
            success:function(data){
@@ -136,14 +142,14 @@
                 ( typeof data.fecha_instalacion != "undefined" )? $('#error6').text(data.fecha_instalacion) : null;
                 ( typeof data.zonas != "undefined" )? $('#error10').text(data.zonas) : null;
                 ( typeof data.idrouter != "undefined" )? $('#error11').text(data.idrouter) : null;
-
-
-
+                ( typeof data.tecnico != "undefined" )? $('#error20').text(data.tecnico) : null; 
               } else {   
 
                 var obj = $.parseJSON(data);
 
-                window.location="{{ url('/cliente') }}/{{$idcliente}}";  
+                window.location="{{ url('/cliente') }}/{{$idcliente}}"; 
+                M.toast({ html: '<span>Registro exitoso</span>'});
+						  
                 
                 //alert(data.success);
 
@@ -339,8 +345,7 @@
     function prueba(ip){  
       $('#ip').val($("#ip"+ip).val());
       $('#vwIpPool').modal('close');
-    }  
-
+    };  
 
     function listaIpDisponibles(idPool){  
       val = $("select[name=idrouter]").val();
@@ -402,5 +407,67 @@
 
         });
    
-    };
+    }; 
+    //----------Jmazuelos 17-08-----------------------concepto de instalacion
+    $(document).ready(function() { 
+      parametroFacturacion=$("select[name=instalacion]").val(); // se obtiene el valor del select instalaciòn
+      parametroInstalacion=$("select[name=facturable]").val(); // se obtiene el valor del select facturable
+
+      if(parametroFacturacion=='SI'){
+          if(parametroInstalacion=='SI'){ 
+            var el = document.getElementById('concepto'); //se habilita el input de costo por instalacion
+            el.style.display ='block'; 
+            
+          }else{
+            var el = document.getElementById('concepto');  // se obtiene el elemento
+              el.style.display ='none'; //se oculta el input de costo por instalacion 
+          } 
+      }else{
+        var el = document.getElementById('instalacionDiv'); // se obtiene el elemento
+        el.style.display ='none';//se oculta el div de costo por instalaciòn
+
+      } 
+      
+    });
+    function elegirInstalacion(sel){
+      var variable = $('option:selected', sel).data("parametro2"); // se obtiene el  valor del del select 
+      if(variable=='SI'){
+        console.log(variable);   
+        var el = document.getElementById('concepto'); //se define la variable "el" igual a nuestro div
+        el.style.display ='block'; 
+         
+      }else{
+        var el = document.getElementById('concepto'); //se define la variable "el" igual a nuestro div
+          el.style.display ='none'; //oculatamos el div  
+      }
+     // alert(variable);
+   } 
+   function elegirFacturacion(sel){
+    var variable = $('option:selected', sel).data("parametro3"); // se obtiene el  valor del del select 
+    if(variable=='SI'){
+      console.log(variable);   
+      var el = document.getElementById('instalacionDiv'); //se define la variable "el" igual a nuestro div
+      el.style.display ='block'; 
+       
+    }else{
+      var el = document.getElementById('instalacionDiv'); //se define la variable "el" igual a nuestro div
+        el.style.display ='none'; //oculatamos el div  
+    }
+   // alert(variable);
+ } 
+   $('.btnSeleccionarTecnico').click(function(e){
+     //--obtenermos los datos del modal 
+    var dataId = $(this).attr("data-id");
+    var dataNombre = $(this).attr("data-nombre"); 
+    var dataDocumento = $(this).attr("data-nro_documento"); 
+    var el = document.getElementById('datosTecnicos'); //se define la variable "el" igual a nuestro div
+        el.style.display ='block'; 
+    $('#tecnico').val(dataNombre);         
+    $('#documentoTecnico').val(dataDocumento); 
+    $('#idTecnico').val(dataId);  
+    $('#modalAddTecnico').modal('close'); 
+       
+   });
+
+
 </script>

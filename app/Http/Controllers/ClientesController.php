@@ -145,10 +145,10 @@ class ClientesController extends Controller
         $idservicio = null;
         foreach ($servicio as $serv) {
             $idservicio = $serv->idservicio;
-        }
+        } 
 
         $notificaciones = DB::table('notificaciones')
-            ->where('idservicio', $idservicio)->get();
+            /* ->where('idservicio', $idservicio) */->get();
 
         $tipo_documento = DB::table('documento')
             ->select('iddocumento', 'descripcion', 'dsc_corta')
@@ -2464,5 +2464,32 @@ public function iframe(){
     
     return view('forms.pruebas.iframe');
 }
+
+public function verificarCorreo(Request $request)
+    {
+       // dd($request); 
+       $rules = array(  
+        'correo'            => 'email',  
+         
+        );
+        $validator = Validator::make ( $request->all(), $rules );
+
+        if ($validator->fails()){
+            $var = $validator->getMessageBag()->toarray();
+            array_push($var, 'error');
+            return response()->json($var);
+        }
+        //dd($validator);
+       $cliente = DB::table('clientes')->where('correo', $request->correo)->get();  
+        //dd($cliente); 
+        if(count($cliente) > 0){
+           // dd("ingreso");
+           return response()->json(array('errors'=> 'EXISTE')); 
+        }
+         
+        return response()->json(array('conforme'=> 'conforme'));   
+    }
+
+
 
 }

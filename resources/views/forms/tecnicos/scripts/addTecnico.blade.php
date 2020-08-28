@@ -4,10 +4,8 @@
 	  format: "yyyy/mm/dd"
 	});
  
-  //----------------------AGREGAR-----------------------------------
-  $("#addTecnicos").click(function(){ 
-	console.log("entro");
-
+  //------JMAZUELOS----------------AGREGAR-----------------------------------
+  $("#addTecnicos").click(function(){  
 	var data = $('#myForm').serializeArray(); 
 	console.log(data);
 	$.ajax({
@@ -15,7 +13,6 @@
 		 type:"POST",
 		 beforeSend: function (xhr) {
 			  var token = $('meta[name="csrf-token"]').attr('content');
-
 			  if (token) {
 					  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
 			  }

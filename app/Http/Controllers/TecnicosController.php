@@ -73,9 +73,9 @@ class TecnicosController extends Controller
             DB::table('tecnicos')->insert([
                 'idtecnico'           => $idTecnico, 
                 'idempresa'           => $request->idempresa,
-                'nombre'              => $request->nombres,
-                'apaterno'            => $request->apaterno,
-                'amaterno'            => $request->amaterno,
+                'nombre'              => strtoupper ($request->nombres ),
+                'apaterno'            => strtoupper ($request->apaterno),
+                'amaterno'            => strtoupper ($request->amaterno),
                 //'apellidos'           => $request->amaterno+$request->apaterno,
                 'fecha_nacimiento'    => $request->fNacimiento,
                 'sexo'                => $request->sexo,

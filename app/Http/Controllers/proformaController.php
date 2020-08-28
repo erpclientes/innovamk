@@ -46,6 +46,13 @@ class proformaController extends Controller
         $marca = DB::table('marca')->where('estado',1)->get();
         $modelo = DB::table('modelo')->where('estado',1)->get();
         $modo = DB::table('modo_equipo')->where('estado',1)->get();
+        $documento_venta = DB::table('documento_venta') 
+            ->where('es_proforma',1)->get();
+        foreach ($documento_venta as $doc) {
+            $iddocumento =$doc->iddocumento;
+            $serie =$doc->serie;
+            $correlativo =str_pad($doc->correlativo+1, 8, "0", STR_PAD_LEFT);
+        } 
 
         return view ('forms.proformas.addProforma',[
             'parametros'        =>$parametros,
@@ -55,8 +62,10 @@ class proformaController extends Controller
             'marca'             => $marca,
             'modelo'            => $modelo,
             'modo'              => $modo,
+            'correlativo'       => $correlativo,
+            'serie'            =>$serie,
             'tipo_documento'    => $tipo_documento,
-    ]);
+        ]);
 
     } 
     public function generarProforma ( Request $request ){

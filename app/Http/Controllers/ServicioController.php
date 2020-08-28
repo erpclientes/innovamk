@@ -47,6 +47,7 @@ class ServicioController extends Controller
         $eqemisor = DB::table('equipos')->where('idmodo',$idemisor)->get();
         $eqreceptor = DB::table('equipos')->where('idmodo',$idreceptor)->get();
         $perfiles = DB::table('perfiles')->get();
+        $tecnicos = DB::table('tecnicos')->get();
         $parametros = DB::table('parametros')->where('tipo_parametro','SISTEMA')->get();
         $zonas = DB::table('zonas')
             ->select('id', 'nombre', 'dsc_corta')
@@ -74,6 +75,7 @@ class ServicioController extends Controller
                     'perfiles'   => $perfiles,
                     'parametros' => $parametros,
                     'parent'     => $parent,
+                    'tecnicos'   => $tecnicos,
                     'zonas'      => $zonas
                 ]);
     }
@@ -86,7 +88,7 @@ class ServicioController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
+         //dd($request);
         $key = new MaestroController();
         $codigo = $key->codigoN(10);
 
@@ -98,6 +100,7 @@ class ServicioController extends Controller
             'fecha_instalacion' => 'required',
             'dia_pago'          => 'required',
             'zonas'             =>'required',
+            'tecnico'           =>'required',
         );
 
         $validator = Validator::make ( $request->all(), $rules );
@@ -110,7 +113,7 @@ class ServicioController extends Controller
         }          
         else {
 
-            DB::table('servicio_internet')
+        DB::table('servicio_internet')
             ->insert([
                 'idempresa'         => '001',
                 'idservicio'        => $codigo,
@@ -126,11 +129,7 @@ class ServicioController extends Controller
                 'fecha_instalacion' => Carbon::createFromFormat('d/m/Y', $request->fecha_instalacion),
                 'dia_pago'          => $request->dia_pago,
                 'precio'            => $request->precio,
-                'emisor_conectado'  => $request->emisor_conectado,
-                'equipo_receptor'   => $request->equipo_receptor,
-                'ip_receptor'       => $request->ip_receptor,
-                'usuario_receptor'  => $request->usuario_receptor,
-                'contrasena_receptor'   => $request->contrasena_receptor, 
+                'idtecnico'         => $request->tecnico,                 
                 'glosa'             => $request->glosa,               
                 'fecha_creacion'    => date('Y-m-d h:m:s'),
                 'idcliente'         => $request->idcliente,
@@ -138,9 +137,9 @@ class ServicioController extends Controller
                 'idusuario'         => Auth::user()->id,
                 'idZona'            =>$request->zonas,
                 'parent'            => $request->parent
-            ]);
+        ]);
 
-            if (!is_null($request->usuario_receptor)) {
+            /*if (!is_null($request->usuario_receptor)) {
                 DB::table('dequipos')
                 ->insert([
                     'idequipo'       => $request->equipo_receptor,
@@ -152,7 +151,7 @@ class ServicioController extends Controller
                     'idusuario'      => Auth::user()->id,
                     'relacion_servicio' => 'PR'
                 ]);
-            }
+            }*/
 
             $parametros = DB::table('parametros')->whereIn('tipo_parametro',['SISTEMA','CLIENTES','FACTURACION'])->get();
             $dia_facturacion = null;
@@ -161,6 +160,7 @@ class ServicioController extends Controller
             $corte = 0;
             $frecuencia_corte = 0;
             $parent = null;
+            $valorInstalacion=0;
             
             foreach ($parametros as $parametro) {
                 if ($parametro->parametro == 'DIA_GENERACION_FAC') {
@@ -177,70 +177,14 @@ class ServicioController extends Controller
                     $parent = $parametro->valor;
                 }
             }
-
-            if ($activar_notificacion == 'SI') {
-                $dia_pago = Carbon::now()->addMonth()->day($request->dia_pago);
-                $fecha_aviso = Carbon::now()->addMonth()->day($request->dia_pago)->subDays($aviso);
-                $fecha_corte = Carbon::now()->addMonth()->day($request->dia_pago)->addDays($corte);
-                $fecha_facturacion = Carbon::now()->addMonth()->day($request->facturacion);
-                $fecha_frecuencia = Carbon::now()->day($request->dia_pago)->addMonths($frecuencia_corte+1); 
-
-
-                DB::table('notificaciones')
-                ->insert([
-                    'idempresa'         => '001',
-                    'idservicio'        => $codigo,
-                    'aviso'             => $aviso,
-                    'corte'             => $corte,
-                    'frecuencia'        => $frecuencia_corte,
-                    'facturacion'       => $request->facturacion,
-                    'fecha_pago'        => $dia_pago,
-                    'fecha_aviso'       => $fecha_aviso,
-                    'fecha_corte'       => $fecha_corte,
-                    'fecha_frecuencia'  => $fecha_frecuencia,
-                    'fecha_facturacion' => $fecha_facturacion
-                ]);  
-
-            }else{
-                $fecha = Carbon::now();            
-                $fecha->day = $request->dia_pago;
-                $fecha_fin = Carbon::now();            
-                $fecha_fin->day = $request->dia_pago - 1;
-                $fecha_fin->addMonth();
-
-                $fecha_facturacion = Carbon::now()->addMonth()->day($request->p_fecha_factura);
-
-                DB::table('notificaciones')
-                ->insert([
-                        'idempresa'         => '001',
-                        'idservicio'        => $codigo,
-                        'aviso'             => 0,
-                        'corte'             => 0,
-                        'frecuencia'        => 0,
-                        'facturacion'       => $dia_facturacion,
-                        'fecha_creacion'    => date('Y-m-d h:m:s'),
-                        'idservicio'        => $codigo,
-                        'fecha_inicio'      => $fecha->format('Y-m-d'),
-                        'fecha_fin'         => $fecha_fin->format('Y-m-d'),
-                        'fecha_facturacion' => $fecha_facturacion
-                ]);    
-            }
-
-                        
-            //Se actualiza la fecha de pago del servicio en la tabla de clientes
-            DB::table('clientes')->where('idcliente',$request->idcliente)
-            ->update(['dia_pago' => $request->dia_pago]);
-
-            //Se actualiza el estado a ASIGNADO en la tabla Equipos
-            DB::table('equipos')->where('idequipo',$request->equipo_receptor)
-            ->update(['idestado' => 'AS']);
+            //dd("ingreso a grabar");  
 
             $cliente = DB::table('clientes')->where('idcliente',$request->idcliente)->get();
             $nombre = null;
 
             foreach ($cliente as $val) {
                 $nombre = $val->nombres.' '.$val->apaterno.' '.$val->amaterno;
-            }
+            } 
             $idusu = Auth::user()->id;
             $validacion = DB::table('validacion')->where('idusuario',$idusu)->get();
 
@@ -271,12 +215,11 @@ class ServicioController extends Controller
             $API = new routeros_api();
             $API->debug = false;
             $ARRAY = null;
-
+           //dd("llego");
+           $perfil = DB::table('perfiles')->where('idperfil',$request->perfil_internet)->get();
             foreach ($router as $rou) {
+                //dd($perfil);
                 if ($API->connect($rou->ip , $rou->usuario , $rou->password, $rou->puerto )) {
-
-                    $perfil = DB::table('perfiles')->where('idperfil',$request->perfil_internet)->get();
-
                     foreach ($perfil as $val) {                    
 
                         if( trim($request->tipo_acceso) == "HST" ){     
@@ -352,6 +295,195 @@ class ServicioController extends Controller
                     }                
                 }       
             }
+            //dd($perfil);
+            
+
+            if($request->facturable =='SI'){
+                //--------
+                $dia_pago = Carbon::now()->addMonth()->day($request->dia_pago);
+                $fecha_aviso = Carbon::now()->addMonth()->day($request->dia_pago)->subDays($aviso);
+                $fecha_corte = Carbon::now()->addMonth()->day($request->dia_pago)->addDays($corte);
+                $fecha_facturacion = Carbon::now()->addMonth(1);  
+                $fecha_frecuencia = Carbon::now()->day($request->dia_pago)->addMonths($frecuencia_corte+1); 
+                DB::table('notificaciones')
+                ->insert([
+                    'idempresa'         => '001',
+                    'idservicio'        => $codigo,
+                    'aviso'             => $aviso,
+                    'corte'             => $corte,
+                    'frecuencia'        => $frecuencia_corte,
+                    'facturacion'       => $request->facturacion,
+                    'fecha_pago'        => $dia_pago,
+                    'fecha_aviso'       => $fecha_aviso,
+                    'fecha_corte'       => $fecha_corte,
+                    'fecha_frecuencia'  => $fecha_frecuencia,
+                    'fecha_facturacion' => $fecha_facturacion
+                ]);  
+        
+                //Se actualiza la fecha de pago del servicio en la tabla de clientes
+                DB::table('clientes')->where('idcliente',$request->idcliente)
+                ->update(['dia_pago' => $request->dia_pago]); 
+
+                $doc_venta = DB::table('documento_venta')->where('estado',1)->get();
+
+                foreach ($doc_venta as $val) {
+                    if ($val->descripcion == 'BOLETA') {
+                        $serie = $val->serie;
+                        $numero = $val->correlativo;    
+                    }
+                }
+                $fechaInicio=Carbon::createFromFormat('d/m/Y',$request->fecha_instalacion);
+                $fechaFin=Carbon::createFromFormat('d/m/Y',$request->fecha_instalacion)->addMonth(1)->subDays(1);
+                $fechaCorte=Carbon::createFromFormat('d/m/Y',$request->fecha_instalacion)->addMonth(1)->addDays(1);
+                foreach ($perfil as $per) {
+                    $detalle="Servicio de Internet Banda ancha 
+                    Periodo: 
+                            desde  $fechaInicio 
+                            hasta  $fechaFin 
+                    Fecha de corte: $fechaCorte 
+                    Plan de Internet: $per->name 
+                    Descarga: $per->vbajada  
+                    Subida: $per->vsubida ";
+                    
+                } 
+                $codigoFac = $key->codigoN(10);
+                $fecha = Carbon::now();  
+                $cliente = DB::table('clientes')->where('idcliente', $request->idcliente)->get();
+                foreach ($cliente as $clien) {
+                    $empresa=$clien->idempresa;
+                    $moneda=$clien->moneda;
+                    $doc_venta=$clien->doc_venta;
+                    $forma_pago=$clien->forma_pago; 
+                }
+                //dd($cliente); 
+                DB::table('factura')
+                ->insert([  
+                    'codigo'            => $codigoFac,
+                    'idempresa'         => $empresa,
+                    'idestado'          => 'EM',
+                    'periodo'           => $fecha,
+                    'fecha_emision'     => Carbon::now(),
+                    'fecha_vencimiento' => $dia_pago,
+                    'idcliente'         => $request->idcliente,
+                    'idservicio'        => $codigo,
+                    'formulario'        => 'CLIENTE_SERVICIOS_ADDCOMPROBANTE',
+                    'idusuario'         => (int) Auth::user()->id, 
+                    'idmoneda'          => $moneda,   
+                    'idforma_pago'      => $forma_pago,  
+                    'iddocumento'       => $doc_venta,       
+                    'serie'             => $serie,  
+                    'numero'            => str_pad($numero, 8, "0", STR_PAD_LEFT),
+                    'costo_servicio'    => $request->precio, 
+                    'subtotal'          => $request->precio,  
+                    'descuento'         => 0,  
+                    'subtotal_neto'     => $request->precio,  
+                    'impuesto'          => 0,   
+                    'total'             => $request->precio, 
+                    'detalle'           => $detalle, 
+                    'fecha_inicio'      => $fechaInicio,
+                    'fecha_fin'         => $fechaFin,
+                    'fecha_corte'       => $fecha_corte,
+                    'idestado'          => 'EM',
+                    'perfil'            => $per->name,
+                    'vbajada'           => $per->vbajada,
+                    'vsubida'           => $per->vsubida,
+                    'fecha_creacion'    => date('Y-m-d h:m:s')
+                ]);
+
+                DB::table('dfactura')
+                ->insert([     
+                    'idfactura'         => $codigoFac,  
+                    'idservicio'        => $codigo,
+                    'cantidad'          => 1,
+                    'precio'            => $request->precio,
+                    'descuento'         => 0,  
+                    'subtotal'          => $request->precio,  
+                    'impuesto'          => 0,   
+                    'total'             => $request->precio, 
+                    'descripcion'       => $detalle
+                ]);
+                
+                if($request->instalacion=='SI'){
+                    $codigoServicio = $key->codigoN(10);
+                    DB::table('dfactura')
+                    ->insert([     
+                        'idfactura'         => $codigoFac,  
+                        'idconcepto'        => $codigoServicio,
+                        'cantidad'          => 1,
+                        'precio'            => $request->valorInstalacion,
+                        'descuento'         => 0,  
+                        'subtotal'          => $request->valorInstalacion,  
+                        'impuesto'          => 0,   
+                        'total'             => $request->valorInstalacion, 
+                        'descripcion'       => 'Costo por instalación del servicio de Internet '
+                    ]);
+                    
+                    $total= $request->precio+$request->valorInstalacion;
+                    DB::table('factura')
+                    ->where('codigo', $codigoFac)
+                    ->update([
+                        'idempresa'         => $empresa,
+                        'subtotal'          => $total,
+                        'subtotal_neto'     => $total,
+                        'total'             => $total 
+                    ]); 
+                }
+                $numero = $numero + 1;
+                $numero = str_pad($numero, 8, "0", STR_PAD_LEFT); 
+                DB::table('documento_venta')
+                    ->where('iddocumento', $request->iddocumento)
+                    ->update(['correlativo' => $numero]); 
+            } 
+            else{
+                if ($activar_notificacion == 'SI') {
+                    $dia_pago = Carbon::now()->addMonth()->day($request->dia_pago);
+                    $fecha_aviso = Carbon::now()->addMonth()->day($request->dia_pago)->subDays($aviso);
+                    $fecha_corte = Carbon::now()->addMonth()->day($request->dia_pago)->addDays($corte);
+                    $fecha_facturacion = Carbon::now()->addMonth(1); 
+    
+                    $fecha_frecuencia = Carbon::now()->day($request->dia_pago)->addMonths($frecuencia_corte+1); 
+                    DB::table('notificaciones')
+                    ->insert([
+                        'idempresa'         => '001',
+                        'idservicio'        => $codigo,
+                        'aviso'             => $aviso,
+                        'corte'             => $corte,
+                        'frecuencia'        => $frecuencia_corte,
+                        'facturacion'       => $request->facturacion,
+                        'fecha_pago'        => $dia_pago,
+                        'fecha_aviso'       => $fecha_aviso,
+                        'fecha_corte'       => $fecha_corte,
+                        'fecha_frecuencia'  => $fecha_frecuencia,
+                        'fecha_facturacion' => $fecha_facturacion
+                    ]);  
+    
+                }else{
+                    $fecha = Carbon::now();            
+                    $fecha->day = $request->dia_pago;
+                    $fecha_fin = Carbon::now();            
+                    $fecha_fin->day = $request->dia_pago - 1;
+                    $fecha_fin->addMonth();
+                    $fecha_facturacion = Carbon::now()->addMonth()->day($request->p_fecha_factura);
+                    DB::table('notificaciones')
+                    ->insert([
+                            'idempresa'         => '001',
+                            'idservicio'        => $codigo,
+                            'aviso'             => 0,
+                            'corte'             => 0,
+                            'frecuencia'        => 0,
+                            'facturacion'       => $dia_facturacion,
+                            'fecha_creacion'    => date('Y-m-d h:m:s'),
+                            'idservicio'        => $codigo,
+                            'fecha_inicio'      => $fecha->format('Y-m-d'),
+                            'fecha_fin'         => $fecha_fin->format('Y-m-d'),
+                            'fecha_facturacion' => $fecha_facturacion
+                    ]);    
+                }
+    
+                
+                
+            }
+
 
             $servicios = DB::table('servicio_internet')->get();
 

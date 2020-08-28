@@ -39,7 +39,8 @@
              <th>Serie</th>
              <th>Correlativo</th>
              <th>BOLETA</th>
-             <th>FACTURA</th>            
+             <th>FACTURA</th>
+             <th>PROFORMA</th>            
              <th>Fecha de Creaci&oacute;n</th>
              <th>Estado</th> 
              <th>Aci&oacute;n</th>                        
@@ -51,19 +52,31 @@
            <td v-text="doc_venta.descripcion"></td>
            <td v-text="doc_venta.dsc_corta"></td>
            <td v-text="doc_venta.serie"></td>  
-           <td v-text="doc_venta.correlativo"></td>             
+           <td v-text="doc_venta.correlativo"></td>  
+
           <td v-if="doc_venta.es_boleta == 1">
             <i class="material-icons" style="color: #2e7d32">check</i>
           </td>
           <td v-else>  
             <i class="material-icons" style="color: #757575">clear</i>  
           </td>
+
           <td v-if="doc_venta.es_factura == 1">  
             <i class="material-icons" style="color: #2e7d32">check</i>  
-          </td>
+          </td> 
           <td v-else>  
             <i class="material-icons" style="color: #757575">clear</i>  
-          </td>     
+          </td>
+
+          <td v-if="doc_venta.es_proforma == 1">  
+            <i class="material-icons" style="color: #2e7d32">check</i>  
+          </td> 
+          <td v-else>  
+            <i class="material-icons" style="color: #757575">clear</i>  
+          </td>
+             
+          
+          
            <td v-text="doc_venta.fecha_creacion"></td>
             <td v-if="doc_venta.estado == 1"><div id="estado2" class="chip center-align teal accent-4 white-text" style="width: 70%">
               <b>ACTIVO</b>
@@ -72,7 +85,7 @@
             <td v-if="doc_venta.estado == 2"><div id="estado" class="chip center-align" style="width: 70%">
               <b>INACTIVO</b>
               <i class="material-icons"></i>
-            </div></td>
+            </div></td> 
            <td>
              <a class="btn-floating waves-effect waves-light grey lighten-5 tooltipped" data-position="top" data-delay="500" title="Editar" v-on:click.prevent="edit(doc_venta)">
              <i class="material-icons" style="color: #7986cb">visibility</i>
@@ -98,6 +111,7 @@
              <th>Correlativo</th>
              <th>BOLETA</th>
              <th>FACTURA</th>
+             <th>PROFORMA</th> 
              <th>Fecha de Creaci&oacute;n</th>
              <th>Estado</th> 
              <th>Aci&oacute;n</th>              
@@ -167,14 +181,25 @@
                             </div>
                             <div class="col s12 m6 l6">
                               <label for="doc_venta">DocVenta del Equipo</label>  
-                            <p>
-                              <input type="checkbox" id="boleta" class="checkbox" v-model="m_boleta" />
-                              <label for="boleta">Boleta</label>
-                            </p>
-                            <p>
-                              <input type="checkbox" id="factura" class="checkbox" v-model="m_factura" />
-                              <label for="factura">Factura</label>
-                            </p>                       
+
+                              <p>
+                                <label>
+                                  <input type="checkbox" id="boleta" class="filled-in" v-model="m_boleta"  checked="checked" />
+                                  <span for="boleta">Boleta</span>
+                                </label>
+                              </p>
+                              <p>
+                                <label>
+                                  <input type="checkbox" class="filled-in" id="factura" v-model="m_factura" checked="checked" />
+                                  <span  for="factura">Factura</span>
+                                </label>
+                              </p>
+                              <p>
+                                <label>
+                                  <input type="checkbox" class="filled-in" id="proforma" v-model="m_proforma" checked="checked" />
+                                  <span  for="proforma">Proforma</span>
+                                </label>
+                              </p>                         
                             </div> 
                           </div>
                         </div>
@@ -237,15 +262,25 @@
                               <div style="color: red; font-size: 12px; font-style: italic;" v-text="errors.correlativo"></div>        
                             </div>
                             <div class="col s12 m6 l6">
-                              <label for="dsc_corta">DocVenta del Equipo</label>  
-                            <p>
-                              <input type="checkbox" id="e_boleta" class="checkbox" v-model="fillDocVenta.m_boleta" />
-                              <label for="e_boleta">Boleta</label>
-                            </p>
-                            <p>
-                              <input type="checkbox" id="e_factura" class="checkbox" v-model="fillDocVenta.m_factura" />
-                              <label for="e_factura">Factura</label>
-                            </p>                        
+                              <label for="dsc_corta">DocVenta del Equipo</label>
+                              <p>
+                                <label>
+                                  <input type="checkbox" id="e_boleta" class="filled-in" v-model="fillDocVenta.m_boleta"  checked="checked" />
+                                  <span for="e_boleta">Boleta</span>
+                                </label>
+                              </p>
+                              <p>
+                                <label>
+                                  <input type="checkbox" class="filled-in" id="e_factura" v-model="fillDocVenta.m_factura" checked="checked" />
+                                  <span  for="e_factura">Factura</span>
+                                </label>
+                              </p> 
+                              <p>
+                                <label>
+                                  <input type="checkbox" class="filled-in" id="e_proforma" v-model="fillDocVenta.m_proforma" checked="checked" />
+                                  <span  for="e_proforma">Proforma</span>
+                                </label>
+                              </p>                       
                             </div>                                                                
                           </div>
                         </div>
@@ -269,6 +304,7 @@
       data: {
         m_boleta: false,
         m_factura: false,
+        m_proforma: false, 
         seccion: 1,
         descripcion: '',      
         dsc_corta: '',
@@ -277,7 +313,7 @@
         errors: '',
         enviando: '1',
         doc_ventas: [], 
-        fillDocVenta: {id: '', descripcion: '', dsc_corta: '', serie: '', correlativo: '', m_boleta: false, m_factura: false},
+        fillDocVenta: {id: '', descripcion: '', dsc_corta: '', serie: '', correlativo: '', m_boleta: false, m_factura: false, m_proforma: false},
         b_descripcion: '',
         offset: 2,
         pagination: {
@@ -397,6 +433,9 @@
           this.fillDocVenta.correlativo = doc_venta.correlativo;
           this.fillDocVenta.m_boleta = ((doc_venta.es_boleta == 1) ? true : false);
           this.fillDocVenta.m_factura = ((doc_venta.es_factura == 1) ? true : false);
+          this.fillDocVenta.m_proforma = ((doc_venta.es_proforma == 1) ? true : false);
+
+          
         },
         UpdateDocVenta: function(id){
             var url = 'documentoVenta/update/' + id;
@@ -406,7 +445,9 @@
                 serie: this.fillDocVenta.serie,
                 correlativo: this.fillDocVenta.correlativo,
                 m_boleta: this.fillDocVenta.m_boleta,
-                m_factura: this.fillDocVenta.m_factura,                                   
+                m_factura: this.fillDocVenta.m_factura,  
+                m_proforma: this.fillDocVenta.m_proforma,
+                                                 
             }).then(response => {             
                 setTimeout(function() {
                   Materialize.toast('<span>Doc. de Venta Actualizado</span>', 1500);
@@ -432,7 +473,9 @@
                 serie: this.serie,
                 correlativo: this.correlativo,              
                 m_boleta: this.m_boleta,
-                m_factura: this.m_factura,                                                               
+                m_factura: this.m_factura,  
+                m_proforma: this.m_proforma,  
+                                                                            
             }).then(response => {             
                 setTimeout(function() {
                   Materialize.toast('<span>Doc. de Venta Registrado</span>', 1500);
@@ -442,7 +485,8 @@
                 this.serie= '';
                 this.correlativo= '';
                 this.m_boleta= '';
-                this.m_factura= '';                                                      
+                this.m_factura= '';
+                this.m_proforma= '';                                                  
                 this.errors = '';
                 this.enviando = 1;
                 this.listDocVentas();

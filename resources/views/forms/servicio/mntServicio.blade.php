@@ -140,7 +140,7 @@
                                                   <input id="Coordenadas" name="coordenadas" type="text">
                                                   <label for="coordenadas">Coordenadas</label>
                                                 </div>     
-                                                <div class="input-field col s12 s12 m6 l6">
+                                                <div class="input-field col s12 s12 m6 l6" >
                                                   <i class="material-icons prefix">settings_ethernet</i>
                                                   <input id="ip" name="ip" type="text" placeholder="" disabled>
                                                   <label for="ip">Dirección IP</label>
@@ -157,75 +157,119 @@
                   </div>
 
                   <div class="col s12 m12 l6">
-                <div class="card white">
-                                            <div class="card-content">
-                                              <span class="card-title">Datos técnicos</span>
-
-                                              <div class="row">
-                                                <div class="input-field col s12 s12 m6 l6">
-                                                  <i class="material-icons prefix">insert_invitation</i>
-                                                  <input id="fecha_instalacion" name="fecha_instalacion" type="text" class="datepicker" placeholder="dd/mm/AAAA">
-                                                  <label for="fecha_instalacion">Fecha de Instalación</label>
-                                                  <div class="errorTxt1" id="error6" style="color: red; font-size: 12px; font-style: italic;"></div>
-                                                </div>  
-                                                
-                                                 <div class="col s12 m6 l6">
-                                                    <label for="emisor_conectado">Equipo Emisor</label>
-                                                    <select class="browser-default" id="emisor_conectado" name="emisor_conectado" data-error=".errorTxt1" > 
-                                                      <option value="" disabled="" selected="">Seleccione un equipo</option>
-                                                      @foreach ($eqemisor as $valor)
-                                                      <option value="{{ $valor->idequipo }}">{{ $valor->descripcion }}</option>
+                    <div class="card white">
+                          <div class="card-content "> <br>
+                                             {{--  <div  class="card white col s12 m6 l10 offset-l1 " >   --}}
+                                                <div class="row "> 
+                                                 <div  class="card white col s12 m8 l10 offset-l1 offset-m2 " >
+                                                    <div class="input-field col s12 m6 l6 offset-l1 ">                                  
+                                                      <p>Fecha de instalación del servicio.</p>                                  
+                                                    </div> 
+                                                    <div class="col s12 m6 l4">
+                                                      <input id="fecha_instalacion" name="fecha_instalacion" type="text" class="datepicker" placeholder="dd/mm/AAAA">
+                                                      <label for="fecha_instalacion">Fecha de Instalación</label>
+                                                      <div class="errorTxt1" id="error6" style="color: red; font-size: 12px; font-style: italic;"></div>                                   
+                                                    </div> 
+                                                  </div>          
+                                                </div> <br>
+                                                <div class="row">
+                                                  <div  class="card white col s12 m8 l10 offset-l1 offset-m2 " >
+                                                    <div class="input-field col s12 m6 l6 offset-l1">                                  
+                                                      <p>Facturar al momento de la creación del servicio.</p>                                  
+                                                    </div> 
+                                                    <div class="col s12 m6 l4"> 
+                                                      <select id="facturable" class="browser-default" name="facturable" onchange="elegirFacturacion(this)" > 
+                                                        <option value="facturable" disabled="">Seleccionar</option> 
+                                                        @foreach($parametros as $datos)
+                                                          @if($datos->parametro == 'ADD_FACTURACION' ) 
+                                                            @if($datos->valor == 'SI')
+                                                              <option  data-parametro3="SI" value="SI" selected="">SI</option>
+                                                              <option  data-parametro3="NO" value="NO">NO</option>
+                                                            @else if($datos->valor == 'NO')
+                                                              <option  data-parametro3="SI"value="SI">SI</option>
+                                                              <option  data-parametro3="NO"value="NO" selected="">NO</option>
+                                                            @endif 
+                                                          @endif
+                                                        @endforeach  
+                                                      </select>                                      
+                                                    </div>
+                                                  </div> 
+                                                             
+                                                </div><br>
+                                                <div class="row" id="instalacionDiv" > 
+                                                  <div  class="card white col s12 m8 l10 offset-l1 offset-m2" >
+                                                    <div class="input-field col s12 m6 l6 offset-l1">                                  
+                                                      <p>Agregar concepto de instalación al la factura.</p>                                  
+                                                    </div> 
+                                                    <div class="col s12 m6 l4">  
+                                                      <select id="instalacion" onchange="elegirInstalacion(this)" class="browser-default" name="instalacion" data-error=".errorTxt1"> 
+                                                        <option value="instalacion" disabled="">Habilitar</option>
+                                                        @foreach($parametros as $datos)
+                                                          @if($datos->parametro == 'APLICAR_INSTALACION' ) 
+                                                            @if($datos->valor == 'SI')
+                                                              <option data-parametro2="SI" value="SI" selected="">SI</option>
+                                                              <option data-parametro2="NO"   value="NO">NO</option>
+                                                            @else if($datos->valor == 'NO')
+                                                              <option data-parametro2="SI"value="SI">SI</option>
+                                                              <option data-parametro2="NO"  value="NO" selected="">NO</option>
+                                                            @endif 
+                                                          @endif
+                                                        @endforeach 
+                                                      </select>                                      
+                                                    </div><br><br><br> 
+                                                    <div id="concepto" class=" input-field col s12 m6 l6 offset-l3" > 
+                                                      @foreach($parametros as $datos)
+                                                        @if($datos->parametro == 'VALOR_INSTALACION' )
+                                                        <i class="material-icons prefix">attach_money</i>
+                                                        <input id="precioInstalacion"  value="{{ $datos->valor_long }}" name="precioInstalacion" type="text" placeholder="" maxlength="9">
+                                                        <label for="precioInstalacion">Precio del Instalación</label>
+                                                        <div class="errorTxt1" id="error15" style="color: red; font-size: 12px; font-style: italic;"></div>
+                                                        @endif
                                                       @endforeach
-                                                    </select>
-                                                    <div class="errorTxt1" style="color: red; font-size: 12px; font-style: italic;"></div>
-                                                  </div>                               
-                                              </div>           
-                                              
-                                                <div class="col s12 m6 l6">
-                                                    <label for="equipo_receptor">Equipo Receptor</label>
-                                                    <select class="browser-default" id="equipo_receptor" name="equipo_receptor" data-error=".errorTxt1" > 
-                                                      <option value="" disabled="" selected="">Equipo Cliente Receptor</option>
-                                                      @foreach ($eqreceptor as $valor)
-                                                      @if(is_null($valor->idestado) or $valor->idestado == 'SN')
-                                                      <option value="{{ $valor->idequipo }}">{{ $valor->descripcion }}</option>
-                                                      @endif
-                                                      @endforeach
-                                                    </select>
-                                                    <div class="errorTxt1"></div>
-                                                  </div>            
+                                                      
 
-                                                <div class="input-field col s12 s12 m6 l6">
-                                                  <i class="material-icons prefix">settings_ethernet</i>
-                                                  <input id="ip_receptor" name="ip_receptor" type="text" placeholder="">
-                                                  <label for="ip_receptor">IP equipo receptor</label>
-                                                </div>     
-                                                <div class="input-field col s12 s12 m6 l6">
-                                                  <i class="material-icons prefix">portrait</i>
-                                                  <input id="usuario_receptor" name="usuario_receptor" type="text" placeholder="">
-                                                  <label for="usuario_receptor">Usuario Equipo Receptor</label>
-                                                </div>
+                                                    </div>
 
-                                                <div class="input-field col s12 s12 m6 l6">
-                                                  <i class="material-icons prefix">vpn_key</i>
-                                                  <input id="contrasena_receptor" name="contrasena_receptor" type="text" placeholder="">
-                                                  <label for="contrasena_receptor">Contraseña Equipo Receptor</label>
-                                                </div>       
-                                                <div class="input-field col s12 m6 l6">
-                                                  <i class="material-icons prefix">mode_edit</i>
-                                                  <textarea id="glosa" name="glosa" class="materialize-textarea" lenght="200" maxlength="200" style="height: 80px;"></textarea>
-                                                  <label for="glosa" class="">Comentario</label>
-                                                </div>            
-                                              </div>
+                                                  </div>
+                                                            
+                                                </div><br>
+                                                <div class="row">  
+                                                    <div  class="card white col s12 m8 l10 offset-l1 offset-m2 " >
+                                                      <div class="input-field col s12 m6 l6 offset-l1">                                  
+                                                        <p>Asignar al técnico responsable de la instalación.</p>                                  
+                                                      </div> 
+                                                      <div class="col s12 m6 l5 center"> 
+                                                        @include('forms.servicio.modalAddTecnico')
+                                                        <br>
+                                                        <a href="#modalAddTecnico" class="btn-floating  modal-trigger waves-effect waves-light grey lighten-5 tooltipped" data-position="top" data-delay="500" data-tooltip="Exportar">
+                                                          <i class="material-icons" style="color: #2E7D32">add</i></a>
+
+                                                      </div>
+                                                      <div class="errorTxt1" id="error20" style="color: red; font-size: 12px; font-style: italic;"></div> 
+                                                      <div class="col s12 m8 l10"  id="datosTecnicos" style="display: none;">  
+                                                        <div class=" col s12 m10 l10 offset-l2 offset-m2 ">
+                                                          <i class="material-icons prefix">perm_identity</i>
+                                                          <label for="tecnico">Nombre</label>
+                                                          <input style="text-align: center;" id="tecnico" readonly="readonly" name="tecnico" type="text" data-error=".errorTxt4" value=""> 
+                                                          <div class="errorTxt4"></div>
+                                                        </div>   
+                                                        <div class=" col s12 m10 l10 offset-l2 offset-m2 " >
+                                                          <i class="material-icons prefix">person</i>
+                                                          <label for="documentoTecnico">Documento</label>
+                                                          <input style="text-align: center;"   id="documentoTecnico" readonly="readonly" name="documentoTecnico" type="text" data-error=".errorTxt5" value=""> 
+                                                          
+                                                        </div> 
+                                                        <input   id="idTecnico" name="idTecnico" type="hidden" data-error=".errorTxt5" value="">                                   
+                                                      </div> 
+                                                    </div>      
+                                                </div><br> 
                                             </div>
-                                        </div>  
-                                    </div>                        
-                   
+                          </div>  
+                      </div>     
 
-                 
-                      
-                      
                   </div>
                   </form>
+                
               </div>
   </div>
 </div>

@@ -71,7 +71,7 @@
 												</td>
 												<td><?php echo $datos->descripcion ?></td>
 												<td class="center" style="width: 9rem">
-													<a  class="btnSeleccionarEquipo btn-floating waves-effect waves-light grey lighten-5 tooltipped modal-trigger" data-tooltip="Seleccionar Equipo"
+													<a  class="btnSeleccionarEquipo btn-floating waves-effect waves-light grey lighten-5 tooltipped  " data-tooltip="Seleccionar Equipo"
 													
 													data-id="{{$datos->idequipo}}" 
 													data-descripcion="{{$datos->descripcion}}" 

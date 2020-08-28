@@ -138,6 +138,8 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/clientes/eliminar/{id}','ClientesController@destroy');
 	Route::get('/cliente','ClientesController@cliente');
 	Route::post('/cliente/verificarID','ClientesController@verificarID');
+	Route::post('/cliente/verificarCorreo','ClientesController@verificarCorreo'); 
+
 	Route::get('/cliente/{id}','ClientesController@cliente');
 	Route::post('/cliente/desabilitar','ClientesController@disabled');
 	Route::post('/cliente/habilitar','ClientesController@habilitar');
