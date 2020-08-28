@@ -238,8 +238,8 @@
 
   
 
-                            {{--  <div class="col s12 m5 l3 bordes" style="padding-left: 5px">
-                                <ul id="task-card" class="collection with-header" style="box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);" >  --}}
+                              <div class="col s12 m5 l3 bordes" style="padding-left: 5px">
+                               {{-- <ul id="task-card" class="collection with-header" style="box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);" >  --}}
                                     
                                     @if(count($servicio) > 0)
                                       @foreach($servicio as $ser)

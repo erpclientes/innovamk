@@ -42,8 +42,11 @@
 
 @section('script')
   
-  <script type="text/javascript" src="highchart/js/highcharts.js"></script>
-  <script type="text/javascript" src="highchart/js/themes/grid.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
   @include('forms.dashboard.scripts.monitor')
   @include('forms.dashboard.scripts.inicio')
 
