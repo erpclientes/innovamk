@@ -25,10 +25,10 @@
         <table id="data-table-simple" class="responsive-table display" cellspacing="0">
              <thead>
                 <tr>
-                   <th width="20px">#</th>
-                   <th width="100%">Fecha</th>
-                   <th width="100%">Tópico</th>
-                   <th width="100%">Mensaje</th>
+                   <th width="auto">#</th>
+                   <th width="auto">Fecha</th>
+                   <th width="auto">Tópico</th>
+                   <th width="auto">Mensaje</th>
                 </tr>
              </thead>
 

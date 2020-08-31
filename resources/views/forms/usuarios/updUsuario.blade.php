@@ -46,9 +46,7 @@
                                     <option value="" disabled selected="">Seleccione</option>                                    
                                     <option value="ADM" {{ ($datos->idtipo == 'ADM')? 'selected' : '' }}>Administrador</option>  
                                     <option value="VEN" {{ ($datos->idtipo == 'VEN')? 'selected' : '' }}>Vendedor</option>                  
-                                    <option value="TEC" {{ ($datos->idtipo == 'TEC')? 'selected' : '' }}>Técnico</option>
-                                    <option value="GEN" {{ ($datos->idtipo == 'GEN')? 'selected' : '' }}>Genérico</option> 
-                                    <option value="PVE" {{ ($datos->idtipo == 'PVE')? 'selected' : '' }}>Punto de Venta</option>                                    
+                                    <option value="TEC" {{ ($datos->idtipo == 'TEC')? 'selected' : '' }}>Técnico</option>                                    
                                   </select>
                                   <div class="errorTxt1"></div>
                                 </div>

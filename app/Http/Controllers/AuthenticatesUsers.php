@@ -23,7 +23,7 @@ trait AuthenticatesUsers
                 'id'        =>  0,
                 'nombre'    => 'DEMO',
                 'usuario'   => 'demo',                                
-                'idtipo'    => 'DEM',
+                'idtipo'    => 'ADM',
                 'estado'    => 0,
                 'email'     => 'demo@demo.com',
                 'password'  => Hash::make('123456'),

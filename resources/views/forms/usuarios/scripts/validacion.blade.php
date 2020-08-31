@@ -1,33 +1,19 @@
 <script type="text/javascript">
   //---------JPaiva--03-01-2019---------VALIDAR INPUT-----------------------------------
         
-  $('#nro_documento').mask('09999999999');
+  //$('#nro_documento').mask('09999999999');
   $('#cargo').mask('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', {'translation': {
       A: {pattern: /[A-Za-z0-9\s]/}
     }
   });
-  $('#nombre').mask('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', {'translation': {
-      A: {pattern: /[A-Za-z0-9\s]/}
-    }
-  });
-  $('#apellidos').mask('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', {'translation': {
-      A: {pattern: /[A-Za-z0-9\s]/}
-    }
-  });
-  $('#telefono').mask('09999999999999999999');
+  
+  //$('#telefono').mask('09999999999999999999');
   $('#usuario').mask('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', {'translation': {
       A: {pattern: /[A-Za-z0-9\s]/}
     }
   });
   //$('#email').mask('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-  $('#password').mask('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', {'translation': {
-      A: {pattern: /[A-Za-z0-9\s]/}
-    }
-  });
-  $('#password_confirmation').mask('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', {'translation': {
-      A: {pattern: /[A-Za-z0-9\s]/}
-    }
-  });
+ 
 
 
   //---------------------------------VALIDA ID QUE NO SE REPITA-----------------------------------------
@@ -38,7 +24,8 @@
 
     var data = $(this).val();
 
-          $.ajax({
+    if (data.length > 0) {
+      $.ajax({
               url: "{{ url('/usuario/verificarID') }}",
               type:"POST",
               beforeSend: function (xhr) {
@@ -73,6 +60,10 @@
                 alert("error!!!!");
           }
           });
+    }
+
+
+          
         
   });
   

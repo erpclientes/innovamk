@@ -42,9 +42,7 @@
                                     <option value="" disabled selected="">Seleccione</option>                                    
                                     <option value="ADM">Administrador</option>                                    
                                     <option value="TEC">Técnico</option>
-                                    <option value="VEN">Vendedor</option> 
-                                    <option value="GEN">Genérico</option> 
-                                    <option value="PVE">Punto de Venta</option>                                    
+                                    <option value="VEN">Vendedor</option>                               
                                   </select>
                                   <div class="errorTxt1" id="error8" style="color: red; font-size: 8px; font-style: italic;"></div> 
                                 </div>
@@ -75,19 +73,19 @@
                                 </div>   
                                 <div class="input-field col s12 m6 l6">
                                   <i class="material-icons prefix">clear_all</i>
-                                  <input id="cargo" name="cargo" type="text" data-error=".errorTxt2" maxlength="50" onkeyup="mayus(this);">
+                                  <input id="cargo" name="cargo" type="text" data-error=".errorTxt2" maxlength="50">
                                   <label for="cargo">Cargo</label>
                                   <div id="error2" style="padding-left: 3rem; color: red; font-size: 12px; font-style: italic;"></div>
                                 </div> 
                                 <div class="input-field col s12 m6 l6">
                                   <i class="material-icons prefix">account_circle</i>
-                                  <input id="nombre" name="nombre" type="text" data-error=".errorTxt4" maxlength="50" onkeyup="mayus(this);">
+                                  <input id="nombre" name="nombre" type="text" data-error=".errorTxt4" maxlength="50">
                                   <label for="nombre">Nombres</label>
                                   <div id="error3" style="padding-left: 3rem; color: red; font-size: 12px; font-style: italic;"></div>
                                 </div>   
                                 <div class="input-field col s12 m6 l6">
                                   <i class="material-icons prefix">account_circle</i>
-                                  <input id="apellidos" name="apellidos" type="text" maxlength="50" onkeyup="mayus(this);">
+                                  <input id="apellidos" name="apellidos" type="text" maxlength="50">
                                   <label for="apellidos">Apellidos</label>
                                   <div id="error4" style="padding-left: 3rem; color: red; font-size: 12px; font-style: italic;"></div>
                                 </div>   
