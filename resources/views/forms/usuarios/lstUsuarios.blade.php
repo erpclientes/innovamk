@@ -54,20 +54,7 @@
                                   </tr>
                                </thead>
                                <?php
-                                    if($bandera){                                                           
-                                ?>
-                               <tfoot>
-                                  <tr>
-                                     <th>#</th>
-                                     <th>Nombre</th>
-                                     <th>Usuario</th>
-                                     <th>Email</th>
-                                     <th>Fecha creación</th>
-                                     <th>Estado</th>
-                                     <th>Acción</th>
-                                  </tr>
-                                </tfoot>
-                                <?php 
+                                    if($bandera){  
                                   foreach ($usuarios as $datos) {
                                     $i++;
                                 ?>

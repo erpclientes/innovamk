@@ -31,7 +31,7 @@ class UsuarioController extends Controller
 
         //--
 
-        $usuarios = DB::table('users')->where('idtipo', 'ADM')->get();
+        $usuarios = DB::table('users')->get();
 
         return view('forms.usuarios.lstUsuarios', [
                     'usuarios'   => $usuarios,
@@ -86,19 +86,7 @@ class UsuarioController extends Controller
             'created_at'    	=> date('Y-m-d h:m:s')
         ]);
 
-        if (count($validacion) === 0) {
-            DB::table('validacion')
-            ->insert([
-                'idusuario' => $idusu,
-                'valor'     => 1
-            ]);
-        }else{
-            DB::table('validacion')
-            ->where('idusuario',strval($idusu))
-            ->update(['valor' => 1]);
-            
-        }
-
+       
         return redirect('/usuarios');
     }
 
